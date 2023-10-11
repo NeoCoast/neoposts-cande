@@ -33,7 +33,7 @@ gem 'bootsnap', require: false
 
 gem "haml-rails", "~> 2.0"
 
-gem 'html2haml'
+gem 'html2haml', "~> 2.3"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
