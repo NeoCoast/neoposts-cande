@@ -4,34 +4,38 @@
     = render "users/shared/error_messages", resource: resource
     .field
       = f.label :email, class: 'form-label mt-2'
-      = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control mb-2'
+      = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:email]
     .field
       = f.label :nickname, class: 'form-label mt-2'
-      = f.text_field :nickname, autofocus: true, autocomplete: "nickname", class: 'form-control mb-2'
+      = f.text_field :nickname, autofocus: true, autocomplete: 'nickname', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:nickname]
     .field
       = f.label :first_name, class: 'form-label mt-2'
-      = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: 'form-control mb-2'
+      = f.text_field :first_name, autofocus: true, autocomplete: 'first_name', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:first_name]
     .field
       = f.label :last_name, class: 'form-label mt-2'
-      = f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: 'form-control mb-2'
+      = f.text_field :last_name, autofocus: true, autocomplete: 'last_name', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:last_name]
     .field
       = f.label :birthday, class: 'form-label mt-2'
-      = f.date_field :birthday, autofocus: true, autocomplete: "birthday", class: 'form-control mb-2'
+      = f.date_field :birthday, autofocus: true, autocomplete: 'birthday', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:birthday]
+    .field
+      = f.label :avatar, class: 'form-label mt-2'
+      = f.file_field :avatar, accept: 'image/*',  autofocus: true, autocomplete: 'avatar', class: 'form-control mb-2'
+      = render 'users/shared/error_fields', errors: resource.errors[:avatar]
     .field
       = f.label :password, class: 'form-label mt-2'
       - if @minimum_password_length
         %em
           (#{@minimum_password_length} characters minimum)
-      = f.password_field :password, autocomplete: "new-password", class: 'form-control mb-2'
+      = f.password_field :password, autocomplete: 'new-password', class: 'form-control mb-2'
       = render 'users/shared/error_fields', errors: resource.errors[:password]
     .field
       = f.label :password_confirmation, class: 'form-label mt-2'
-      = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control mb-2'
+      = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control mb-2'
     .actions
-      = f.submit "Sign up", class: 'btn btn-primary mt-2'
-  = render "users/shared/links"
+      = f.submit 'Sign up', class: 'btn btn-primary mt-2'
+  = render 'users/shared/links'

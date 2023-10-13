@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :validatable, :rememberable
 
   validates :nickname,
             uniqueness: { case_sensitive: false },
             presence: true
 
   validates :email,
-            uniqueness: { case_sensitive: false },
-            presence: true
+            uniqueness: { case_sensitive: false }
 
   validates :first_name,
             presence: true
@@ -23,7 +19,7 @@ class User < ApplicationRecord
   validates :birthday,
             presence: true
 
-  validates :password,
+  validates :avatar,
             presence: true
 
   has_one_attached :avatar
