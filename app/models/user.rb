@@ -7,10 +7,24 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :nickname,
-            uniqueness: { case_sensitive: false }
+            uniqueness: { case_sensitive: false },
+            presence: true
 
   validates :email,
-            uniqueness: true
+            uniqueness: { case_sensitive: false },
+            presence: true
+
+  validates :first_name,
+            presence: true
+
+  validates :last_name,
+            presence: true
+
+  validates :birthday,
+            presence: true
+
+  validates :password,
+            presence: true
 
   has_one_attached :avatar
 end
