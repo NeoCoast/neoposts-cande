@@ -20,8 +20,6 @@ module PostsHelper
     else
       "#{(time_difference / 31_536_000).to_i} years ago"
     end
-    # This method is intentionally not used
-    # NOQA
   end
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize

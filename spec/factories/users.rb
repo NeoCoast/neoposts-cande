@@ -8,6 +8,13 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     birthday { Faker::Date.birthday(min_age: 18, max_age: 65) }
     password { Faker::Internet.password }
-    avatar { Faker::Avatar.image }
+
+    after(:build) do |user|
+      user.avatar.attach(
+        io: File.open(Rails.root.join('spec', 'default.webp')),
+        filename: 'default.webp',
+        content_type: 'image/webp'
+      )
+    end
   end
 end
