@@ -1,18 +1,18 @@
 .show-new-post-container.mb-5
   .row.g-0
     .col-md-1
-      = image_tag @last_post.user.avatar, class: "rounded-circle user-img-post"
+      = image_tag @post.user.avatar, class: 'rounded-circle user-img-post'
     .col-md-11
       .post-info.div.card
-        = @last_post.user.nickname
+        = @post.user.nickname
         %br
-        = @last_post.user.email
+        = @post.user.email
         |
-        = time_since_publication(@last_post)
+        = distance_of_time_in_words(@post.published_at, Time.now)
         .card-body.mt-2
           %h5.card-title
-            = @last_post.title
+            = @post.title
           %p.card-text.mt-3
-            = @last_post.body
-            - if @last_post.avatar.present?
-              = image_tag @last_post.avatar, class: "post-img mt-2"
+            = @post.body
+            - if @post.image.present?
+              = image_tag @post.image, class: 'post-img mt-2'

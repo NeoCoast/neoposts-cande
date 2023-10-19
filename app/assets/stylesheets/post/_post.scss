@@ -1,22 +1,22 @@
-h2{
+h2 {
     align-self: flex-start;
     font-size: x-large;
 }
 
 .new-post-container {
-   background-color: white;
-   padding: 45px;
-   padding-bottom: 35px;
-   padding-top: 35px;
-   border: solid;
+    background-color: white;
+    padding: 45px;
+    padding-bottom: 35px;
+    padding-top: 35px;
+    border: solid;
     border-radius: 10px;
     border-color: #6E80B1;
     border-width: 1px;
-   color: #626E90;
-   width: 590px;
-   margin: auto;
-   margin-top: 75px;
-   margin-bottom: 75px
+    color: #626E90;
+    width: 590px;
+    margin: auto;
+    margin-top: 75px;
+    margin-bottom: 75px;
 }
 
 body {
@@ -32,7 +32,7 @@ body {
     margin-left: 425px;
 }
 
-.btn-create-post{
+.btn-create-post {
     background-color: #6E80B1;
     border-color: #6E80B1;
 }

@@ -6,21 +6,30 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(post_params)
-    if @post.save
-      redirect_to @post
+    if user_signed_in?
+      @post = current_user.posts.new(post_params)
+      if @post.save
+        redirect_to @post
+      else
+        render 'new'
+      end
     else
-      render 'new'
+      no_signed_user
     end
   end
 
   def show
-    @last_post = Post.last
+    @post = Post.find(params[:id])
   end
 
   private
 
+  def no_signed_user
+    redirect_to new_user_session_path
+    flash[:alert] = 'Please sign in to create a post.'
+  end
+
   def post_params
-    params.require(:post).permit(:title, :body, :avatar)
+    params.require(:post).permit(:title, :body, :image)
   end
 end

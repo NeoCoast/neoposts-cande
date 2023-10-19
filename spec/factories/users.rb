@@ -9,9 +9,11 @@ FactoryBot.define do
     birthday { Faker::Date.birthday(min_age: 18, max_age: 65) }
     password { Faker::Internet.password }
 
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+
     after(:build) do |user|
       user.avatar.attach(
-        io: File.open(Rails.root.join('spec', 'default.webp')),
+        io: File.open(image_path),
         filename: 'default.webp',
         content_type: 'image/webp'
       )
