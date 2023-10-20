@@ -4,23 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :validatable, :rememberable
 
   validates :nickname,
-            uniqueness: { case_sensitive: false },
-            presence: true
+            uniqueness: { case_sensitive: false }
 
   validates :email,
             uniqueness: { case_sensitive: false }
 
-  validates :first_name,
-            presence: true
-
-  validates :last_name,
-            presence: true
-
-  validates :birthday,
-            presence: true
-
-  validates :avatar,
-            presence: true
+  validates_presence_of :nickname, :email, :first_name, :last_name, :birthday, :avatar
 
   has_one_attached :avatar
+
+  has_many :posts
 end

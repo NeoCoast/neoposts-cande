@@ -1,15 +1,12 @@
-.d-flex {
-    display: flex !important;
-    flex: auto;
+h2 {
+    align-self: flex-start;
+    font-size: x-large;
 }
 
-.field {
-    width: 500px;
-}
-
-.sign-container {
+.new-post-container {
     background-color: white;
     padding: 45px;
+    padding-bottom: 35px;
     padding-top: 35px;
     border: solid;
     border-radius: 10px;
@@ -22,16 +19,20 @@
     margin-bottom: 75px;
 }
 
-.btn-create-user {
-    background-color: #6E80B1;
-    border-color: #6E80B1;
-    margin-top: 20px;
-    margin-bottom: 15px;
+body {
+    background-color: #E8EEFF;
 }
 
-.actions-create-user {
+.actions-create-post {
     margin-right: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
+    margin-top: 15px;
+    margin-left: 425px;
+}
+
+.btn-create-post {
+    background-color: #6E80B1;
+    border-color: #6E80B1;
 }
