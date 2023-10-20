@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'root_page/show'
   devise_for :users
   resources :posts, only: %i[show new create]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

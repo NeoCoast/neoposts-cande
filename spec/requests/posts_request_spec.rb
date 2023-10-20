@@ -72,7 +72,6 @@ RSpec.describe 'Posts', type: :request do
 
     it 'with no logged user - redirects to login' do
       get post_path(post)
-      puts response.body
       expect(response).to redirect_to(new_user_session_path)
     end
 
