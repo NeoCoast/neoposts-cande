@@ -8,7 +8,6 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
-  scope :own, ->(user) { where(user_id: user.id) }
   scope :ordered_posts, -> { order(published_at: :desc) }
 
   private

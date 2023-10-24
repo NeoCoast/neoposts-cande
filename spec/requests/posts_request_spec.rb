@@ -112,25 +112,26 @@ RSpec.describe 'Posts', type: :request do
       before do
         user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
         sign_in user
+        get root_path
       end
 
       it 'verifies response is success' do
-        get root_path
         expect(response).to have_http_status(:success)
       end
 
       context 'creates multipe posts' do
         let!(:posts) { create_list(:post, 6, user:) }
+        before do
+          get root_path
+        end
 
         it 'verifies 6 posts are shown' do
-          get root_path
           posts.each do |post|
             expect(response.body).to include(CGI.escapeHTML(post.title))
           end
         end
 
         it 'verifies only 6 posts are created' do
-          get root_path
           post_titles = posts.map { |post| CGI.escapeHTML(post.title) }
           expect(response.body.scan(/#{Regexp.union(post_titles)}/).size).to eq(6)
         end

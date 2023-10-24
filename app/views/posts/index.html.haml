@@ -1,11 +1,7 @@
 .header
 
 .wrapper
-  .side-bar.d-flex.flex-column.align-items-center
-    = image_tag current_user.avatar, class: 'rounded-circle user-img'
-    = current_user.nickname
-    = link_to 'New post', 'posts/new', class: 'btn btn-primary btn-newPost'
-    = button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn-logOut'
+  = render partial: 'partials/side-bar'
 
   .posts-container.d-flex.flex-column
     - if @posts.present?
