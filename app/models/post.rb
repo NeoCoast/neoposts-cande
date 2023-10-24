@@ -8,6 +8,8 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
+  scope :own, ->(user) { where(user_id: user.id) }
+
   private
 
   def set_published_at

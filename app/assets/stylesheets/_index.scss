@@ -1,0 +1,87 @@
+.posts-container {
+  background-color: white;
+  padding-bottom: 35px;
+  padding-top: 20px;
+  border: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #626E90;
+  max-width: 590px; 
+  margin-left: 10px;
+  border-color: #6E80B1;
+}
+
+.header {
+  height: 75px;
+  margin-bottom: 20px;
+  background-color: #CCD2E4;
+}
+
+.side-bar{
+  background-color: white;
+  border-radius: 5px;
+  border-width: 0.5px;
+  color: #626E90;
+  border: solid;
+  padding: 45px;
+  padding-bottom: 35px;
+  padding-top: 35px; 
+  margin-right: 10px;
+  max-width: 200px; 
+  height: fit-content;
+  border-color: #6E80B1;
+}
+
+.btn-newPost {
+  background-color: #6E80B1;
+  display: inline-block;
+  border-color: #6E80B1;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.btn-logOut {
+  font-family: var(--bs-btn-font-family);
+  border: aliceblue;
+  background: unset;
+  text-decoration: underline;
+  display: inline-block;
+  color: #626E90;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.user-img {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 10px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+ul {
+  display: contents;
+  list-style: none;
+  color: #626E90;
+}
+
+hr {
+  border: 0.5px solid #6E80B1;
+  opacity: 100;
+}
+
+li {
+  margin-left: 45px;
+  margin-right: 45px;
+}
+
+.no-posts {
+  margin-left: 45px;
+  margin-right: 45px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

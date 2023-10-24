@@ -18,6 +18,10 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def index
+    @posts = Post.own(current_user).order(published_at: :desc)
+  end
+
   private
 
   def post_params

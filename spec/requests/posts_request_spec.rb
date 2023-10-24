@@ -97,4 +97,35 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
+
+  describe '#index_post_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+    let(:user) { create :user }
+    let(:post) { create :post }
+
+    it 'with no logged user - redirects to login' do
+      get root_path
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    context 'with logged user' do
+      before do
+        user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+        sign_in user
+      end
+
+      it 'verifies response is success' do
+        get root_path
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'verifies 6 posts are shown' do
+        posts = create_list(:post, 6, user:)
+        get root_path
+        posts.each do |post|
+          expect(response.body).to include(CGI.escapeHTML(post.title))
+        end
+      end
+    end
+  end
 end
