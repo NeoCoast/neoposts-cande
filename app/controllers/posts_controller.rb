@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.own(current_user).order(published_at: :desc)
+    @posts = Post.ordered_posts
   end
 
   private

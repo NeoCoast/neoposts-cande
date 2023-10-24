@@ -1,6 +1,7 @@
 .row.g-0
   .col-md-1
-    = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
+    - if post.user.avatar.persisted?
+      = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
   .col-md-11
     .post-info.div.card
       = post.user.nickname
@@ -15,3 +16,4 @@
           = post.body
           - if post.image.present?
             = image_tag post.image, class: 'post-img mt-2'
+%hr

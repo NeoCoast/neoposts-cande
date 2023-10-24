@@ -9,11 +9,7 @@
 
   .posts-container.d-flex.flex-column
     - if @posts.present?
-      %ul
-        - @posts.each do |post|
-          %li
-            = render partial: 'single_post', locals: { post: post}
-          %hr
+      = render partial: 'post', collection: @posts
     - else
       .no-posts
         No posts found

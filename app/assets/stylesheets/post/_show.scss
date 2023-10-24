@@ -1,8 +1,6 @@
 .show-new-post-container {
     background-color: white;
-    padding: 45px;
-    padding-bottom: 35px;
-    padding-top: 35px;
+    padding: 35px 45px;
     border: solid;
     border-radius: 5px;
     border-color: #6E80B1;
@@ -22,13 +20,14 @@
     border-color: white;
     padding: 15px;
     color: #626E90;
+    margin-left: 10px;
 }
 
 .user-img-post {
-    margin-top: 20px;
     width: 42px;
     height: 42px;
-    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 20px
 }
 
 .post-img {

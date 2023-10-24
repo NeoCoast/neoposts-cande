@@ -17,7 +17,7 @@
   background-color: #CCD2E4;
 }
 
-.side-bar{
+.side-bar {
   background-color: white;
   border-radius: 5px;
   border-width: 0.5px;
@@ -63,25 +63,16 @@
   padding-bottom: 40px;
 }
 
-ul {
-  display: contents;
-  list-style: none;
-  color: #626E90;
-}
-
 hr {
   border: 0.5px solid #6E80B1;
   opacity: 100;
 }
 
-li {
-  margin-left: 45px;
-  margin-right: 45px;
+.no-posts {
+  margin: 20px 45px;
 }
 
-.no-posts {
+.row {
   margin-left: 45px;
   margin-right: 45px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }

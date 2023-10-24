@@ -119,11 +119,20 @@ RSpec.describe 'Posts', type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'verifies 6 posts are shown' do
-        posts = create_list(:post, 6, user:)
-        get root_path
-        posts.each do |post|
-          expect(response.body).to include(CGI.escapeHTML(post.title))
+      context 'creates multipe posts' do
+        let!(:posts) { create_list(:post, 6, user:) }
+
+        it 'verifies 6 posts are shown' do
+          get root_path
+          posts.each do |post|
+            expect(response.body).to include(CGI.escapeHTML(post.title))
+          end
+        end
+
+        it 'verifies only 6 posts are created' do
+          get root_path
+          post_titles = posts.map { |post| CGI.escapeHTML(post.title) }
+          expect(response.body.scan(/#{Regexp.union(post_titles)}/).size).to eq(6)
         end
       end
     end
