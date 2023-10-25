@@ -4,10 +4,13 @@
   .side-bar.d-flex.flex-column.align-items-center
     = image_tag current_user.avatar, class: 'rounded-circle user-img'
     = current_user.nickname
+    %br
     = current_user.email
+    %br
     = current_user.first_name
     = current_user.last_name
-    = current_user.birthday
+    %br
+    = current_user.birthday.strftime('%d/%m/%Y')
     %br
     %br
     = 'Posts: '

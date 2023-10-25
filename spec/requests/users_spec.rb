@@ -28,11 +28,11 @@ RSpec.describe 'Users', type: :request do
 
       it 'verifies all user data is in the response' do
         expect(response.body).to include(user.first_name, user.last_name, user.nickname, user.email,
-                                         user.birthday.strftime('%Y-%m-%d'), user.avatar.filename.to_s)
+                                         user.birthday.strftime('%d/%m/%Y'), user.avatar.filename.to_s)
       end
 
       it 'verifies post count is in the response' do
-        expect(response.body).to include(Post.count.to_s)
+        expect(response.body).to include(user.posts.count.to_s)
       end
 
       it 'verifies title of all posts are in the response' do
