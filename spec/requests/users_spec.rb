@@ -20,6 +20,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       let(:post) { create :post, user: }
+      let(:post2) { create :post }
 
       it 'verifies response is success' do
         expect(response).to have_http_status(:success)
@@ -35,20 +36,18 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'verifies title of all posts are in the response' do
-        Post.all.each do |post|
+        user.posts.each do |post|
           expect(response.body).to include(post.title)
         end
+      end
+
+      it 'verifies title of other posts is not in the response' do
+        expect(response.body).not_to include(post2.title)
       end
 
       it 'redirects to root if nickname is not the users' do
         get user_show_path('invalid_nickname')
         expect(response).to redirect_to(root_path)
-      end
-
-      it 'verifies users posts are in the response' do
-        other_post = create(:post, user:)
-        get user_show_path(user.nickname)
-        expect(response.body).to include(other_post.title)
       end
     end
   end
