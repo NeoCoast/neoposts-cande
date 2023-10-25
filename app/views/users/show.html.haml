@@ -11,10 +11,7 @@
     %br
     %br
     = 'Posts: '
-    - if @posts.present?
-      = @posts.count
-    -else
-      = 0
+    = @posts.count
 
   .posts-container.d-flex.flex-column
     - if @posts.present?

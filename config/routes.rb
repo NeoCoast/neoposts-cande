@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get '/:nickname(.:format)', to: 'users#show', as: 'user_show'
-  #get 'users/show'
+  get '/:nickname', to: 'users#show', as: 'user_show'
   devise_for :users
   root to: 'posts#index'
   resources :posts, only: %i[show new create index]
