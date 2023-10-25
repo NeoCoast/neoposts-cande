@@ -1,0 +1,24 @@
+.header
+
+.wrapper
+  .side-bar.d-flex.flex-column.align-items-center
+    = image_tag current_user.avatar, class: 'rounded-circle user-img'
+    = current_user.nickname
+    = current_user.email
+    = current_user.first_name
+    = current_user.last_name
+    = current_user.birthday
+    %br
+    %br
+    = 'Posts: '
+    - if @posts.present?
+      = @posts.count
+    -else
+      = 0
+
+  .posts-container.d-flex.flex-column
+    - if @posts.present?
+      = render partial: '/posts/post', collection: @posts
+    - else
+      .no-posts
+        No posts found
