@@ -9,6 +9,8 @@ class User < ApplicationRecord
   validates :email,
             uniqueness: { case_sensitive: false }
 
+  validates :nickname, format: { without: /\./, message: "should not include a period ('.')" }
+
   validates_presence_of :nickname, :email, :first_name, :last_name, :birthday, :avatar
 
   has_one_attached :avatar
