@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: neoposts_cande_production
-  username: neoposts_cande
+  database: neoposts_cande
+  username: neoposts_cande_user
   password: <%= ENV["NEOPOSTS_CANDE_DATABASE_PASSWORD"] %>
