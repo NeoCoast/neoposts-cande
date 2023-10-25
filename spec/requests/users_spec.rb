@@ -25,13 +25,9 @@ RSpec.describe 'Users', type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'verifies lasts user nickname is correct' do
-        expect(response.body).to include(user.nickname)
-      end
-
       it 'verifies all user data is in the response' do
         expect(response.body).to include(user.first_name, user.last_name, user.nickname, user.email,
-                                         user.birthday.strftime('%Y-%m-%d'))
+                                         user.birthday.strftime('%Y-%m-%d'), user.avatar.filename.to_s)
       end
 
       it 'verifies post count is in the response' do
@@ -42,6 +38,17 @@ RSpec.describe 'Users', type: :request do
         Post.all.each do |post|
           expect(response.body).to include(post.title)
         end
+      end
+
+      it 'redirects to root if nickname is not the users' do
+        get user_show_path('invalid_nickname')
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'verifies users posts are in the response' do
+        other_post = create(:post, user:)
+        get user_show_path(user.nickname)
+        expect(response.body).to include(other_post.title)
       end
     end
   end
