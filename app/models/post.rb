@@ -8,6 +8,8 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
+  scope :ordered_posts, -> { order(published_at: :desc) }
+
   private
 
   def set_published_at
