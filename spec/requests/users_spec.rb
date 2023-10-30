@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
   describe '#show_user_request' do
-    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:user) { create :user }
 
     it 'with no logged user - redirects to login' do
@@ -14,7 +14,7 @@ RSpec.describe 'Users', type: :request do
 
     context 'with logged user' do
       before do
-        user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
         get user_show_path(user.nickname)
       end

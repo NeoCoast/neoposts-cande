@@ -1,2 +1,5 @@
-.show-new-post-container.d-flex.flex-column
-  = render partial: 'post', locals: { post: @post }
+.post-container.d-flex.flex-column
+  .back-btn
+    = link_to 'back', root_path
+  %hr
+  = render partial: 'post_content', locals: { post: @post }

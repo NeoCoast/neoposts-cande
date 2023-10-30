@@ -1,19 +1,2 @@
-.row.g-0
-  .col-md-1
-    - if post.user.avatar.persisted?
-      = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
-  .col-md-11
-    .post-info.div.card
-      = post.user.nickname
-      %br
-      = post.user.email
-      |
-      = distance_of_time_in_words(post.published_at, Time.now) + ' ago'
-      .card-body.mt-2
-        %h5.card-title
-          = post.title
-        %p.card-text.mt-3
-          = post.body
-          - if post.image.present?
-            = image_tag post.image, class: 'post-img mt-2'
-%hr
+= link_to post_path(post), class: 'post_link' do
+  = render 'posts/post_content', post: post

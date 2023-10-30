@@ -42,3 +42,5 @@
 /.byebug_history
 
 /.sass-cache/*
+
+.DS_Store

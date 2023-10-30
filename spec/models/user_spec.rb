@@ -8,8 +8,8 @@ RSpec.describe User, type: :model do
                            last_name: 'Summers', birthday: Date.new(2000, 12, 12), password: 'passsword')
   end
   before do
-    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
-    user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
   end
 
   describe '#email' do
