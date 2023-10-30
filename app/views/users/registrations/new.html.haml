@@ -1,7 +1,6 @@
 .sign-container.d-flex.flex-column.align-items-center
   %h2.display-5 Sign Up
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-    = render "errors/error_messages", resource: resource
     .field
       = f.label :email, class: 'form-label mt-2'
       = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control mb-2'
@@ -36,6 +35,7 @@
     .field
       = f.label :password_confirmation, class: 'form-label mt-2'
       = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control mb-2'
+      = render 'errors/error_fields', errors: resource.errors[:password_confirmation]
     .actions-create-user
       = f.submit 'Sign up', class: 'btn btn-primary btn-create-user'
   = render 'users/shared/links'

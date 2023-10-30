@@ -1,7 +1,6 @@
 .new-post-container
   %h2 Add a new post
   = form_for @post do |f|
-    = render 'errors/error_messages', resource: @post
     .field
       = f.label :title, class: 'form-label mt-2'
       = f.text_field :title, autofocus: true, autocomplete: 'title', class: 'form-control mb-2'
@@ -13,5 +12,6 @@
     .field
       = f.label :image, class: 'form-label mt-2'
       = f.file_field :image, accept: 'image/jpeg,image/png', autofocus: true, autocomplete: 'image', class: 'form-control mb-2'
+      = render 'errors/error_fields', errors: @post.errors[:image]
     .actions-create-post
       = f.submit 'Create', class: 'btn btn-primary mt-2 btn-create-post'

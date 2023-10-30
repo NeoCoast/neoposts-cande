@@ -1,6 +1,5 @@
 .posts-container {
   background-color: white;
-  padding-bottom: 35px;
   padding-top: 20px;
   border: solid;
   border-radius: 5px;
@@ -32,6 +31,7 @@
   height: fit-content;
   border-color: #6E80B1;
   margin-left: auto;
+  text-align: center;
 }
 
 .btn-newPost {
@@ -68,6 +68,7 @@
 hr {
   border: 0.5px solid #6E80B1;
   opacity: 100;
+  margin-top: 8px;
 }
 
 .no-posts {
@@ -77,4 +78,26 @@ hr {
 .row {
   margin-left: 45px;
   margin-right: 45px;
+}
+
+.post_link {
+  color: #626E90;
+  border-bottom: 0.5px solid #6E80B1;
+  padding-bottom: 8px;
+  text-decoration: auto;
+  border-width: thin;
+}
+
+.data {
+  width: -webkit-fill-available;
+  word-wrap: break-word;
+}
+
+post-link:last-child {
+  border-bottom: none;
+}
+
+a {
+  text-decoration: auto;
+  color: #626E90;
 }

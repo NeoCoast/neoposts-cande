@@ -5,7 +5,7 @@ RSpec.describe 'Posts', type: :request do
 
   describe '#create_post_request' do
     let(:new_post) { attributes_for :post }
-    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:user) { create :user }
 
     it 'with no logged user - redirects to login' do
@@ -15,7 +15,7 @@ RSpec.describe 'Posts', type: :request do
 
     context 'with logged user' do
       before do
-        user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
       end
 
@@ -66,7 +66,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#show_post_request' do
-    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:user) { create :user }
     let(:post) { create :post }
 
@@ -77,7 +77,7 @@ RSpec.describe 'Posts', type: :request do
 
     context 'with logged user' do
       before do
-        user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
         get post_path(post)
       end
@@ -97,7 +97,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#index_post_request' do
-    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'default.webp')
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:user) { create :user }
     let(:post) { create :post }
 
@@ -109,7 +109,7 @@ RSpec.describe 'Posts', type: :request do
     context 'with logged user' do
       let!(:posts) { create_list(:post, 6, user:) }
       before do
-        user.avatar.attach(io: File.open(image_path), filename: 'default.webp', content_type: 'image/webp')
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
         get root_path
       end

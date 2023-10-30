@@ -1,20 +1,23 @@
 .header
+  = link_to root_path do
+    = render partial: 'partials/header'
 
 .wrapper
   .side-bar.d-flex.flex-column.align-items-center
     = image_tag current_user.avatar, class: 'rounded-circle user-img'
-    = current_user.nickname
-    %br
-    = current_user.email
-    %br
-    = current_user.first_name
-    = current_user.last_name
-    %br
-    = current_user.birthday.strftime('%d/%m/%Y')
-    %br
-    %br
-    = 'Posts: '
-    = @posts.count
+    .data
+      = current_user.nickname
+      %br
+      = current_user.email
+      %br
+      = current_user.first_name
+      = current_user.last_name
+      %br
+      = current_user.birthday.strftime('%d/%m/%Y')
+      %br
+      %br
+      = 'Posts: '
+      = @posts.count
 
   .posts-container.d-flex.flex-column
     - if @posts.present?
