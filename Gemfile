@@ -31,10 +31,17 @@ gem 'tzinfo-data', platforms: %i[windows jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
 
-gem "haml-rails", "~> 2.0"
+gem 'haml-rails', '~> 2.0'
+
+gem 'html2haml', '~> 2.3'
+
+gem 'image_processing', '~> 1.0'
+
+gem 'foreman', '~> 0.87.2'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'byebug'
   gem 'debug', platforms: %i[mri windows]
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 6.0.0'
@@ -53,6 +60,10 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner-active_record'
   gem 'faker'
+  gem 'rails-controller-testing'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
 end
+
+gem 'devise', '~> 4.9'

@@ -1,10 +1,10 @@
 AllCops:
   NewCops: enable
-  Exclude: 
-    - 'bin/*'
-    - 'config/**/*'
-    - 'db/**/*'
-    - 'lib/tasks/*'
+  Exclude:
+    - "bin/*"
+    - "config/**/*"
+    - "db/**/*"
+    - "lib/tasks/*"
   SuggestExtensions: false
 
 Style/Documentation:
@@ -12,4 +12,4 @@ Style/Documentation:
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*'
+    - "spec/**/*"

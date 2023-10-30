@@ -1,0 +1,5 @@
+.post-container.d-flex.flex-column
+  .back-btn
+    = link_to 'back', root_path
+  %hr
+  = render partial: 'post_content', locals: { post: @post }

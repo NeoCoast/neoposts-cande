@@ -1,0 +1,12 @@
+.header
+  = render partial: 'partials/header'
+
+.wrapper
+  = render partial: 'partials/side-bar'
+
+  .posts-container.d-flex.flex-column
+    - if @posts.present?
+      = render partial: 'post', collection: @posts
+    - else
+      .no-posts
+        No posts found
