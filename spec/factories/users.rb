@@ -2,7 +2,12 @@
 
 FactoryBot.define do
   factory :user do
-    email { Faker::Internet.email }
+    email do
+      generated_email = Faker::Internet.email
+      generated_email.sub!('.example', '.com')
+      generated_email.sub!('.test', '.com')
+      generated_email
+    end
     first_name { Faker::Name.first_name.capitalize }
     nickname { Faker::Internet.username.tr('.', '_') }
     last_name { Faker::Name.last_name.capitalize }

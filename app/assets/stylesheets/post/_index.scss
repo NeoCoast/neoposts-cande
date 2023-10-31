@@ -9,12 +9,7 @@
   margin-left: 10px;
   border-color: #6E80B1;
   margin-right: auto;
-}
-
-.header {
-  height: 75px;
-  margin-bottom: 20px;
-  background-color: #CCD2E4;
+  height: fit-content;
 }
 
 .side-bar {
@@ -39,7 +34,6 @@
   display: inline-block;
   border-color: #6E80B1;
   margin-top: 20px;
-  margin-bottom: 15px;
 }
 
 .btn-logOut {
@@ -93,7 +87,7 @@ hr {
   word-wrap: break-word;
 }
 
-post-link:last-child {
+.posts-container .post_link:last-of-type {
   border-bottom: none;
 }
 
