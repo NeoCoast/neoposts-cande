@@ -1,7 +1,3 @@
-.header
-  = link_to root_path do
-    = render partial: 'partials/header'
-
 .wrapper
   .side-bar.d-flex.flex-column.align-items-center
     = image_tag current_user.avatar, class: 'rounded-circle user-img'
@@ -18,6 +14,8 @@
       %br
       = 'Posts: '
       = @posts.count
+      %br
+      = link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary btn-newPost'
 
   .posts-container.d-flex.flex-column
     - if @posts.present?

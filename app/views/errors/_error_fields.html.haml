@@ -1,8 +1,8 @@
 - if errors.present?
-    - errors.each do |error|
-        - if error == "doesn't match Password"
-            %p.text-danger
-                = 'passwords do not match'
-        - else
-            %p.text-danger
-                = error
+  - errors.each do |error|
+    - if error == "doesn't match Password"
+      %p.text-danger
+        = 'passwords do not match'
+    - else
+      %p.text-danger
+        = error
