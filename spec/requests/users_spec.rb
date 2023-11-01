@@ -66,7 +66,7 @@ RSpec.describe 'Users', type: :request do
       before do
         user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
-        get edit_user_registration_path, params: { user: modified_user }
+        get edit_user_registration_path
       end
 
       it 'renders edit page' do
@@ -95,12 +95,16 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'redirects to user show page - used email' do
-      put user_registration_path, params: { user: { email: user2.email } }
+      put user_registration_path, params: {
+        user: modified_user.merge(current_password: 'password', email: user2.email)
+      }
       expect(response).to render_template('edit')
     end
 
     it 'redirects to user show page - used nickname' do
-      put user_registration_path, params: { user: { nickname: user2.email } }
+      put user_registration_path, params: {
+        user: modified_user.merge(current_password: 'password', nickname: user2.nickname)
+      }
       expect(response).to render_template('edit')
     end
 
