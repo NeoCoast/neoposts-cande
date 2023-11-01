@@ -45,7 +45,7 @@ RSpec.describe 'Users', type: :request do
         expect(response.body).not_to include(post2.title)
       end
 
-      it 'redirects to root if nickname is not the users' do
+      it 'redirects to root if nickname does not exist' do
         get user_show_path('invalid_nickname')
         expect(response).to redirect_to(root_path)
       end
@@ -135,6 +135,94 @@ RSpec.describe 'Users', type: :request do
 
       it 'verifies updated avatar' do
         expect(user.reload.avatar.filename.to_s).to eq('default.webp')
+      end
+    end
+  end
+
+  describe '#index_user_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user1) { create :user, password: 'password' }
+    let(:user2) { create :user, password: 'password' }
+    let(:user3) { create :user, password: 'password' }
+    let(:user4) { create :user, password: 'password' }
+    let(:user5) { create :user, password: 'password' }
+    let(:user6) { create :user, password: 'password' }
+    let(:user7) { create :user, password: 'password' }
+    let(:user8) { create :user, password: 'password' }
+    let(:users) do
+      [user1, user2, user3, user4, user5, user6, user7, user8].sort_by(&:nickname)
+    end
+
+    before do
+      user1.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user2.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user3.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user4.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user5.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user6.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user7.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      user8.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      sign_in user1
+    end
+
+    it 'verifies response is success' do
+      get users_path, params: { page: 1 }
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'verifies users nicknames in first page' do
+      get users_path, params: { page: 1 }
+      users[0..5].each do |user|
+        expect(response.body).to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames not in first page' do
+      get users_path, params: { page: 1 }
+      users[6..7].each do |user|
+        expect(response.body).not_to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames in second page' do
+      get users_path, params: { page: 2 }
+      users[6..7].each do |user|
+        expect(response.body).to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames not in second page' do
+      get users_path, params: { page: 2 }
+      users[0..5].each do |user|
+        expect(response.body).not_to include(user.nickname)
+      end
+    end
+
+    it 'verifies users emails in first page' do
+      get users_path, params: { page: 1 }
+      users[0..5].each do |user|
+        expect(response.body).to include(user.email)
+      end
+    end
+
+    it 'verifies users emails not in first page' do
+      get users_path, params: { page: 1 }
+      users[6..7].each do |user|
+        expect(response.body).not_to include(user.email)
+      end
+    end
+
+    it 'verifies users emails in second page' do
+      get users_path, params: { page: 2 }
+      users[6..7].each do |user|
+        expect(response.body).to include(user.email)
+      end
+    end
+
+    it 'verifies users emails not in second page' do
+      get users_path, params: { page: 2 }
+      users[0..5].each do |user|
+        expect(response.body).not_to include(user.email)
       end
     end
   end

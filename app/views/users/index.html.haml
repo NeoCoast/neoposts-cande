@@ -1,0 +1,8 @@
+.users-container.d-flex.flex-column
+  - if @users.present?
+    = render partial: 'user', collection: @users
+  - else
+    .no-users
+      No users found
+= paginate @users if @users.present?
+

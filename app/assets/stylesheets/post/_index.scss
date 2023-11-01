@@ -1,6 +1,5 @@
 .posts-container {
   background-color: white;
-  padding-top: 20px;
   border: solid;
   border-radius: 5px;
   border-width: 1px;
@@ -75,6 +74,7 @@ hr {
 }
 
 .post_link {
+  margin-top: 20px;
   color: #626E90;
   border-bottom: 0.5px solid #6E80B1;
   padding-bottom: 8px;

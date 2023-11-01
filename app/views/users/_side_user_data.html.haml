@@ -1,0 +1,18 @@
+.side-bar.d-flex.flex-column.align-items-center
+  = image_tag user.avatar, class: 'rounded-circle user-img'
+  .data
+    = user.nickname
+    %br
+    = user.email
+    %br
+    = user.first_name
+    = user.last_name
+    %br
+    = user.birthday.strftime('%d/%m/%Y')
+    %br
+    %br
+    = 'Posts: '
+    = @posts.count
+    %br
+    - if user == current_user
+      = link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary btn-newPost'

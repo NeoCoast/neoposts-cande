@@ -1,0 +1,43 @@
+.users-container {
+  background-color: white;
+  border: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #626E90;
+  max-width: 590px; 
+  margin: 10px;
+  border-color: #6E80B1;
+  margin: auto;
+  height: fit-content;
+}
+
+.no-users {
+  margin: 20px 45px;
+  padding: 0px;
+}
+
+.user_link {
+  color: #626E90;
+  border-bottom: 0.5px solid #6E80B1;
+  padding-bottom: 8px;
+  text-decoration: auto;
+  border-width: thin;
+}
+
+.users-container .user_link:last-of-type {
+  border-bottom: none;
+}
+
+.pagination {
+  justify-content: space-around;
+  padding-top: 10px;
+  width: 590px;
+  justify-items: baseline;
+  margin: auto;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  border-top: none;
+  background-color: #CCD2E5;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}

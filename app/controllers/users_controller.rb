@@ -2,10 +2,14 @@
 
 class UsersController < ApplicationController
   def show
-    if params[:nickname] == current_user.nickname
-      @posts = current_user.posts.order(published_at: :desc)
-    else
-      redirect_to root_path
-    end
+    @user = User.find_by(nickname: params[:nickname])
+
+    redirect_to root_path, alert: 'User not found' unless @user
+
+    @posts = @user.posts.order(published_at: :desc) if @user
+  end
+
+  def index
+    @users = User.order(:nickname).page params[:page]
   end
 end

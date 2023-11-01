@@ -1,0 +1,9 @@
+.row.g-0
+  .col-md-1
+    - if user.avatar.persisted?
+      = image_tag user.avatar, class: 'rounded-circle user-img-post'
+  .col-md-11
+    .post-info.div.card
+      = user.nickname
+      %br
+      = user.email
