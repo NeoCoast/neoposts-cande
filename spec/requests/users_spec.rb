@@ -141,28 +141,13 @@ RSpec.describe 'Users', type: :request do
 
   describe '#index_user_request' do
     image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
-    let(:user1) { create :user, password: 'password' }
-    let(:user2) { create :user, password: 'password' }
-    let(:user3) { create :user, password: 'password' }
-    let(:user4) { create :user, password: 'password' }
-    let(:user5) { create :user, password: 'password' }
-    let(:user6) { create :user, password: 'password' }
-    let(:user7) { create :user, password: 'password' }
-    let(:user8) { create :user, password: 'password' }
-    let(:users) do
-      [user1, user2, user3, user4, user5, user6, user7, user8].sort_by(&:nickname)
-    end
+    let!(:users) { create_list(:user, 8, password: 'password').sort_by(&:nickname) }
 
     before do
-      user1.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user2.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user3.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user4.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user5.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user6.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user7.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      user8.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      sign_in user1
+      users.each do |user|
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      end
+      sign_in users[0]
     end
 
     it 'verifies response is success' do
