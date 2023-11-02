@@ -45,7 +45,7 @@ RSpec.describe 'Users', type: :request do
         expect(response.body).not_to include(post2.title)
       end
 
-      it 'redirects to root if nickname is not the users' do
+      it 'redirects to root if nickname does not exist' do
         get user_show_path('invalid_nickname')
         expect(response).to redirect_to(root_path)
       end
@@ -135,6 +135,79 @@ RSpec.describe 'Users', type: :request do
 
       it 'verifies updated avatar' do
         expect(user.reload.avatar.filename.to_s).to eq('default.webp')
+      end
+    end
+  end
+
+  describe '#index_user_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let!(:users) { create_list(:user, 8, password: 'password').sort_by(&:nickname) }
+
+    before do
+      users.each do |user|
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      end
+      sign_in users[0]
+    end
+
+    it 'verifies response is success' do
+      get users_path, params: { page: 1 }
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'verifies users nicknames in first page' do
+      get users_path, params: { page: 1 }
+      users[0..5].each do |user|
+        expect(response.body).to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames not in first page' do
+      get users_path, params: { page: 1 }
+      users[6..7].each do |user|
+        expect(response.body).not_to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames in second page' do
+      get users_path, params: { page: 2 }
+      users[6..7].each do |user|
+        expect(response.body).to include(user.nickname)
+      end
+    end
+
+    it 'verifies users nicknames not in second page' do
+      get users_path, params: { page: 2 }
+      users[0..5].each do |user|
+        expect(response.body).not_to include(user.nickname)
+      end
+    end
+
+    it 'verifies users emails in first page' do
+      get users_path, params: { page: 1 }
+      users[0..5].each do |user|
+        expect(response.body).to include(user.email)
+      end
+    end
+
+    it 'verifies users emails not in first page' do
+      get users_path, params: { page: 1 }
+      users[6..7].each do |user|
+        expect(response.body).not_to include(user.email)
+      end
+    end
+
+    it 'verifies users emails in second page' do
+      get users_path, params: { page: 2 }
+      users[6..7].each do |user|
+        expect(response.body).to include(user.email)
+      end
+    end
+
+    it 'verifies users emails not in second page' do
+      get users_path, params: { page: 2 }
+      users[0..5].each do |user|
+        expect(response.body).not_to include(user.email)
       end
     end
   end

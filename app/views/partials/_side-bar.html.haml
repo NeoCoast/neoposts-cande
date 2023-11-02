@@ -1,7 +1,7 @@
-= link_to user_show_path(current_user.nickname) do
+= link_to user_show_path(user.nickname) do
   .side-bar.d-flex.flex-column.align-items-center
-    = image_tag current_user.avatar, class: 'rounded-circle user-img'
+    = image_tag user.avatar, class: 'rounded-circle user-img'
     .data
-      = current_user.nickname
+      = user.nickname
       = link_to 'New post', 'posts/new', class: 'btn btn-primary btn-newPost'
       = button_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn-logOut'

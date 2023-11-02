@@ -1,22 +1,5 @@
 .wrapper
-  .side-bar.d-flex.flex-column.align-items-center
-    = image_tag current_user.avatar, class: 'rounded-circle user-img'
-    .data
-      = current_user.nickname
-      %br
-      = current_user.email
-      %br
-      = current_user.first_name
-      = current_user.last_name
-      %br
-      = current_user.birthday.strftime('%d/%m/%Y')
-      %br
-      %br
-      = 'Posts: '
-      = @posts.count
-      %br
-      = link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary btn-newPost'
-
+  = render partial: 'side_user_data', locals: { user: @user }
   .posts-container.d-flex.flex-column
     - if @posts.present?
       = render partial: '/posts/post', collection: @posts
