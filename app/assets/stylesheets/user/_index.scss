@@ -18,13 +18,12 @@
 
 .user_link {
   color: #626E90;
-  border-bottom: 0.5px solid #6E80B1;
-  padding-bottom: 8px;
   text-decoration: auto;
-  border-width: thin;
+  display: -webkit-inline-box;
+  width: 430px;
 }
 
-.users-container .user_link:last-of-type {
+.users-container .row-user:last-of-type {
   border-bottom: none;
 }
 
@@ -40,4 +39,51 @@
   background-color: #CCD2E5;
   border-radius: 5px;
   margin-bottom: 30px;
+}
+
+.user-info {
+  border-color: white;
+  margin: 15px;
+  color: #626E90;
+  margin-left: 25px;
+}
+
+.row-user {
+  align-items: center;
+  padding-left: 45px;
+  padding-right: 30px;
+  display: -webkit-inline-box;
+  border-bottom: solid;
+  border-width: 1px;
+}
+
+.col-md-2 {
+  align-self: center;
+  
+  align-items: center;
+}
+
+.btn-follow {
+  margin-right: 10px;
+  background-color: #6E80B1;
+  border-color: #6E80B1;
+  margin-top: 20px;
+  width: -webkit-fill-available;
+  padding: 5px;
+  margin-right: 0px;
+}
+
+.btn-unfollow {
+  margin-right: 10px;
+  color:  #6E80B1;
+  background-color: #EFF1F7;
+  border-color: #6E80B1;
+  margin-top: 20px;
+  width: -webkit-fill-available;
+  padding: 5px;
+  margin-right: 0px;
+}
+
+.side {
+  margin-left: auto;
 }

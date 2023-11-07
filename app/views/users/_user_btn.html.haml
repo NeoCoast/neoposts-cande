@@ -1,9 +1,12 @@
-.row.g-0
-  .col-md-1
-    - if user.avatar.persisted?
-      = image_tag user.avatar, class: 'rounded-circle user-img-post'
-  .col-md-11
-    .post-info.div.card
-      = user.nickname
-      %br
-      = user.email
+.row-user.g-0
+  = link_to user_show_path(user.nickname), class: 'user_link' do
+    .col-md-1
+      - if user.avatar.persisted?
+        = image_tag user.avatar, class: 'rounded-circle user-img-post'
+    .col-md-9
+      .user-info.div.card
+        = user.nickname
+        %br
+        = user.email
+  .col-md-2.follow-btn
+    = render partial: 'partials/btn-follow', locals: { user: user }
