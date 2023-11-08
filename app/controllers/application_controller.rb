@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  # include RelationshipHelper
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!, unless: :devise_controller?
   protect_from_forgery with: :exception, if: proc { |controller| controller.request.format != 'application/json' }

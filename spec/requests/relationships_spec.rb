@@ -8,8 +8,6 @@ RSpec.describe 'Relationships', type: :request do
     let(:follower) { create :user }
     let(:followed) { create :user }
 
-    let(:relationship) { Relationship.create(follower:, followed:) }
-
     before do
       follower.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
       followed.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
@@ -31,23 +29,28 @@ RSpec.describe 'Relationships', type: :request do
       post relationships_path, params: { relationship: { followed_id: followed.id } }
       expect(follower.following?(followed)).to be_truthy
     end
+
+    it 'verifies cant follow same user twice' do
+      post relationships_path, params: { relationship: { followed_id: followed.id } }
+      post relationships_path, params: { relationship: { followed_id: followed.id } }
+      expect(response).not_to have_http_status(:success)
+    end
   end
 
   describe 'unfollow user' do
     image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:follower) { create :user }
     let(:followed) { create :user }
-
-    let(:relationship) { Relationship.create(follower:, followed:) }
+    let(:relationship) { create :relationship, follower:, followed: }
 
     before do
       follower.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
       followed.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
       sign_in follower
-      post relationships_path, params: { relationship: { followed_id: followed.id } }
+      relationship
     end
 
-    it 'verifies resoonse is success' do
+    it 'verifies response is success' do
       delete relationship_path(followed.id), params: { relationship: { followed_id: followed.id } }
       expect(response).to have_http_status(:success)
     end
@@ -59,8 +62,16 @@ RSpec.describe 'Relationships', type: :request do
     end
 
     it 'verifies follower does not follow the followes' do
+      expect(follower.following?(followed)).to be_truthy
       delete relationship_path(followed.id), params: { relationship: { followed_id: followed.id } }
       expect(follower.following?(followed)).to be_falsey
+    end
+
+    it 'verifies cant unfollow same user twice' do
+      delete relationship_path(followed.id), params: { relationship: { followed_id: followed.id } }
+      count = Relationship.count
+      delete relationship_path(followed.id), params: { relationship: { followed_id: followed.id } }
+      expect(Relationship.count).to be(count)
     end
   end
 end
