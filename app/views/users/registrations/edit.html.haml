@@ -30,18 +30,18 @@
       = f.password_field :current_password, autocomplete: 'current-password', class: 'form-control mb-2'
       - if resource.errors[:current_password].include?("can't be blank")
         = render 'errors/error_fields', errors: ['enter your password to confirm changes']
-      - elsif resource.errors[:current_password].include?("is invalid")
+      - elsif resource.errors[:current_password].include?('is invalid')
         = render 'errors/error_fields', errors: ['password is incorrect']
       - else
         = render 'errors/error_fields', errors: resource.errors[:current_password]
     .field
       = f.label :password, class: 'form-label mt-2'
-      %br/
       = f.password_field :password, autocomplete: 'new-password', class: 'form-control mb-0'
       - if @minimum_password_length
         %em
           = @minimum_password_length
           characters minimum
+      = render 'errors/error_fields', errors: resource.errors[:password]
     .field
       = f.label :password_confirmation, class: 'form-label mt-3'
       = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control mb-2'

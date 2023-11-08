@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :find_user, only: %i[following followers]
+
   def show
     @user = User.find_by(nickname: params[:nickname])
 
@@ -13,13 +15,12 @@ class UsersController < ApplicationController
     @users = User.order(:nickname).page params[:page]
   end
 
-  def following
-    @title = 'Following'
-    @user = User.find(params[:id])
-  end
+  def following; end
+  def followers; end
 
-  def followers
-    @title = 'Followers'
+  private
+
+  def find_user
     @user = User.find(params[:id])
   end
 end
