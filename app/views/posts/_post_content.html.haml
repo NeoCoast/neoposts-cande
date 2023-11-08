@@ -1,18 +1,18 @@
 .row.g-0
   .col-md-1
     - if post.user.avatar.persisted?
-      = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
+      = link_to user_show_path(post.user.nickname), class: 'user_link_info' do
+        = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
   .col-md-11
     .post-info.div.card
-      = post.user.nickname
-      %br
-      = post.user.email
-      |
-      = distance_of_time_in_words(post.published_at, Time.now) + ' ago'
-      .card-body
-        %h5.card-title
-          = post.title
-        %p.card-text.mt-3
-          = post.body
-          - if post.image.present?
-            = image_tag post.image, class: 'post-img mt-2'
+      = link_to user_show_path(post.user.nickname), class: 'user_link_info' do
+        = post.user.nickname
+        %br
+        = post.user.email
+        |
+        = distance_of_time_in_words(post.published_at, Time.now) + ' ago'
+      - if post_links
+        = link_to post_path(post), class: 'post_link' do
+          = render partial: 'posts/post_elements', locals: { post: post }
+      - else
+        = render partial: 'posts/post_elements', locals: { post: post }

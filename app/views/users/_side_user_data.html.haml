@@ -12,7 +12,7 @@
     %br
     %br
     = 'Posts: '
-    = @posts.count
+    = posts_count
     %br
     - if user == current_user
       = link_to 'Edit', edit_user_registration_path, class: 'btn btn-primary btn-newPost'

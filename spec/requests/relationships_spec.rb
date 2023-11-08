@@ -61,7 +61,7 @@ RSpec.describe 'Relationships', type: :request do
       expect(Relationship.count).to be(count - 1)
     end
 
-    it 'verifies follower does not follow the followes' do
+    it 'verifies follower does not follow the unfollowed' do
       expect(follower.following?(followed)).to be_truthy
       delete relationship_path(followed.id), params: { relationship: { followed_id: followed.id } }
       expect(follower.following?(followed)).to be_falsey

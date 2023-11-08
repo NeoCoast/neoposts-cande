@@ -1,6 +1,7 @@
 .wrapper
   .side
-    = render partial: 'side_user_data', locals: { user: @user }
+    = render partial: 'side_user_data', locals: { user: @user, posts_count: @posts.count }
+    = render partial: 'following-followed', locals: { user: @user }
     - if @user != current_user
       - following = current_user.following?(@user).to_s
       = render partial: 'partials/btn-follow', locals: { user: @user, following: following }

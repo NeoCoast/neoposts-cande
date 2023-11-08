@@ -1,5 +1,7 @@
 .wrapper
-  = render partial: 'partials/side-bar', locals: { user: current_user }
+  .side
+    = render partial: 'partials/side-bar', locals: { user: current_user }
+    = link_to 'Users', users_path, class: 'button btn btn-primary btn-users'
 
   .posts-container.d-flex.flex-column
     - if @posts.present?
