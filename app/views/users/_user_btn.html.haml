@@ -10,4 +10,5 @@
         = user.email
   .col-md-2.follow-btn
     - following = current_user.following?(user).to_s
-    = render partial: 'partials/btn-follow', locals: { user: user, following: following }
+    - if current_user != user
+      = render partial: 'partials/btn-follow', locals: { user: user, following: following }

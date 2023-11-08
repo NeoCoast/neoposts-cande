@@ -1,2 +1,1 @@
-= link_to post_path(post), class: 'post_link' do
-  = render 'posts/post_content', post: post
+= render partial: 'posts/post_content',  locals: { post: post, post_links: true }

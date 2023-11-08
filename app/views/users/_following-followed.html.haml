@@ -1,0 +1,9 @@
+.followe-container
+  = link_to following_user_path(user.id), class: 'link_to_following' do
+    following
+    %br
+    = @user.following.count
+  = link_to followers_user_path(user.id), class: 'link_to_followers' do
+    followers
+    %br
+    = user.followers.count

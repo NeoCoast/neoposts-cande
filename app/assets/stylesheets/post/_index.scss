@@ -11,6 +11,13 @@
   height: fit-content;
 }
 
+.post-cont {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin: auto;
+  margin-top: 0px;
+}
+
 .side-bar {
   background-color: white;
   border-radius: 5px;
@@ -68,14 +75,16 @@ hr {
 }
 
 .row {
-  margin-left: 45px;
-  margin-right: 30px;
+  border-color: #6E80B1;
+  border-bottom: solid;
+  border-width: 1px;
+  padding-left: 45px;
+  padding-right: 30px;
 }
 
 .post_link {
   margin-top: 20px;
   color: #626E90;
-  border-bottom: 0.5px solid #6E80B1;
   padding-bottom: 8px;
   text-decoration: auto;
   border-width: thin;
@@ -86,7 +95,7 @@ hr {
   word-wrap: break-word;
 }
 
-.posts-container .post_link:last-of-type {
+.posts-container .row:last-of-type {
   border-bottom: none;
 }
 

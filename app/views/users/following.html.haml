@@ -1,2 +1,15 @@
-followers
-= @user.following.count
+.wrapper
+  .side
+    = render partial: 'side_user_data', locals: { user: @user, posts_count: @user.posts.count}
+    = render partial: 'following-followed', locals: { user: @user, following: true }
+    -if @user != current_user
+      - following = current_user.following?(@user).to_s
+      = render partial: 'partials/btn-follow', locals: { user: @user, following: following }
+  .followers-container.d-flex.flex-column
+    .title-container
+      Following
+    - if @user.following.present?
+      = render partial: 'user', collection: @user.following
+    - else
+      .no-posts
+        No users found
