@@ -12,4 +12,16 @@ class UsersController < ApplicationController
   def index
     @users = User.order(:nickname).page params[:page]
   end
+
+  def following
+    @title = 'Following'
+    @user  = User.find(params[:id])
+    render 'following'
+  end
+
+  def followers
+    @title = 'Followers'
+    @user  = User.find(params[:id])
+    render 'followers'
+  end
 end

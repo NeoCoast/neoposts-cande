@@ -1,5 +1,9 @@
 .wrapper
-  = render partial: 'side_user_data', locals: { user: @user }
+  .side
+    = render partial: 'side_user_data', locals: { user: @user }
+    - if @user != current_user
+      - following = current_user.following?(@user).to_s
+      = render partial: 'partials/btn-follow', locals: { user: @user, following: following }
   .posts-container.d-flex.flex-column
     - if @posts.present?
       = render partial: '/posts/post', collection: @posts

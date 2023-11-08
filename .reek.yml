@@ -3,6 +3,8 @@ detectors:
     enabled: false
   InstanceVariableAssumption:
     enabled: false
+  FeatureEnvy:
+    enabled: false
 
 exclude_paths:
-- "./db/migrate/*"
+  - "./db/migrate/*"

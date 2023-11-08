@@ -1,0 +1,2 @@
+%button.btn.btn-primary.btn-follow{ type: 'button', data: { user_id: user.id, follows: following }, remote: true }
+  = current_user.following?(user) ? 'Unfollow' : 'Follow'
