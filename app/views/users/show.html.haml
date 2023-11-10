@@ -4,7 +4,7 @@
     = render partial: 'following-followed', locals: { user: @user }
     - if @user != current_user
       - following = current_user.following?(@user).to_s
-      = render partial: 'partials/btn-follow', locals: { user: @user, following: following }
+      = render partial: 'partials/btn-follow', locals: { user: @user, following: following, is_current_user: false, is_side_user: true.to_s, in_following: false.to_s, in_followers: false.to_s }
   .posts-container.d-flex.flex-column
     - if @posts.present?
       = render partial: '/posts/post', collection: @posts

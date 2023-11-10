@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       get :following, :followers
     end
   end
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   root to: 'posts#index'
   resources :posts, only: %i[show new create index]
   resources :relationships, only: [:create, :destroy]

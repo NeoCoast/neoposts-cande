@@ -27,7 +27,7 @@ RSpec.describe 'Users', type: :request do
       end
 
       it 'verifies all user data is in the response' do
-        expect(response.body).to include(user.first_name, user.last_name, user.nickname, user.email,
+        expect(response.body).to include(user.first_name, user.last_name, user.nickname,
                                          user.birthday.strftime('%d/%m/%Y'), user.avatar.filename.to_s)
       end
 

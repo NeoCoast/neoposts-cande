@@ -1,2 +1,4 @@
 .header-content
-  = image_tag 'Neocoast_Logos_RGB-06.svg', size: '83x40'
+  = link_to root_path do
+    = image_tag 'Neocoast_Logos_RGB-06.svg', size: '83x40'
+    = link_to 'Users', users_path, class: 'button btn btn-primary btn-users'

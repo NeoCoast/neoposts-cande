@@ -28,7 +28,6 @@
 }
 
 .pagination {
-  justify-content: space-around;
   padding-top: 10px;
   width: 590px;
   justify-items: baseline;
@@ -39,6 +38,20 @@
   background-color: #CCD2E5;
   border-radius: 5px;
   margin-bottom: 30px;
+  justify-content: center;
+}
+
+.page {
+  margin-right: 30px;
+}
+
+.next {
+  margin-right: 30px;
+}
+
+.prev {
+  margin-right: 30px;
+  margin-left: 30px;
 }
 
 .user-info {
@@ -49,6 +62,15 @@
 }
 
 .row-user {
+  align-items: center;
+  padding-left: 45px;
+  padding-right: 30px;
+  display: -webkit-inline-box;
+  border-bottom: solid;
+  border-width: 1px;
+}
+
+.row-current-user {
   align-items: center;
   padding-left: 45px;
   padding-right: 30px;
