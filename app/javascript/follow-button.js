@@ -58,8 +58,8 @@ $(document).ready(function() {
           relationship: {
             followed_id: userId
           }
-        }
-      });
+        },
+      })
     }
 
     else {
@@ -87,8 +87,8 @@ $(document).ready(function() {
 
             $('.no-follow').hide();
           }
-        }
-      });
+        },
+      })
     }
     self.data('follows', !following);
   });
