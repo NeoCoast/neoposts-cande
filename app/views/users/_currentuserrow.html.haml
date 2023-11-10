@@ -1,0 +1,11 @@
+.row-current-user.g-0
+  = link_to user_show_path(current_user.nickname), class: 'user_link' do
+    .col-md-1
+      - if current_user.avatar.persisted?
+        = image_tag current_user.avatar, class: 'rounded-circle user-img-post'
+    .col-md-9
+      .user-info.div.card
+        = current_user.nickname
+        %br
+        = current_user.email
+  .col-md-2.follow-btn

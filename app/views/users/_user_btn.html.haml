@@ -1,4 +1,4 @@
-.row-user.g-0
+.row-user.g-0{ 'data-user-id' => user.id }
   = link_to user_show_path(user.nickname), class: 'user_link' do
     .col-md-1
       - if user.avatar.persisted?
@@ -10,5 +10,5 @@
         = user.email
   .col-md-2.follow-btn
     - following = current_user.following?(user).to_s
-    - if current_user != user
-      = render partial: 'partials/btn-follow', locals: { user: user, following: following }
+    - if user != current_user
+      = render partial: 'partials/btn-follow', locals: { user: user, following: following, is_current_user: is_current_user, is_side_user: is_side_user, in_following: in_following, in_followers: in_followers, target: "#user-row-#{user.id}" }

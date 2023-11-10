@@ -1,8 +1,7 @@
 .users-container.d-flex.flex-column
   - if @users.present?
-    = render partial: 'user', collection: @users
+    = render partial: 'user', collection: @users, locals: { is_side_user: false.to_s, is_current_user: false.to_s, in_following: false.to_s, in_followers: false.to_s}
   - else
     .no-users
       No users found
 = paginate @users if @users.present?
-
