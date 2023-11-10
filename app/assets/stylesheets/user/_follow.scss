@@ -1,0 +1,46 @@
+.followe-container {
+  display: flex;
+  width: 100%;
+  padding: 5px 10px;
+  margin-top: 10px;
+  background-color: white;
+  border: solid;
+  border-radius: 5px;
+  border-color: #6E80B1;
+}
+
+.link_to_followers {
+  text-align-last: center;
+  margin-left: auto;
+}
+
+.link_to_following {
+  text-align-last: center;
+  margin-right: auto;
+}
+
+.followers-container {
+  background-color: white;
+  border: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #626E90;
+  max-width: 590px; 
+  margin: 10px;
+  margin-top: 0px;
+  border-color: #6E80B1;
+  height: fit-content;
+  margin-right: auto;
+}
+
+.followers-container .row-user:last-of-type {
+  border-bottom: none;
+}
+
+.title-container {
+  font-size: 20px;
+  border-bottom: solid;
+  border-color: #6E80B1;
+  border-width: 1px;
+  padding: 10px 30px;
+}

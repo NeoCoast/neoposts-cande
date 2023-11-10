@@ -1,0 +1,18 @@
+.wrapper
+  .side
+    = link_to user_show_path(@user.nickname) do
+      = render partial: 'side_user_data', locals: { user: @user, posts_count: @user.posts.count }
+    = render partial: 'following-followed', locals: { user: @user, following: true }
+    - following = current_user.following?(@user).to_s
+    - if @user != current_user
+      = render partial: 'partials/btn-follow', locals: { user: @user, following: following, is_current_user: false.to_s, is_side_user: true.to_s, in_following: false.to_s, in_followers: false.to_s }
+  .followers-container.d-flex.flex-column
+    .title-container
+      Following
+    - if @user.following.present?
+      - is_side_user = (@user == current_user).to_s
+      - is_current_user = (current_user == @user).to_s
+      = render partial: 'user', collection: @user.following, locals: { is_side_user: is_side_user, is_current_user: is_current_user, in_following: true.to_s, in_followers: false.to_s }
+    - else
+      .no-posts.no-follow
+        No users found

@@ -1,0 +1,7 @@
+.card-body
+  %h5.card-title
+    = post.title
+  %p.card-text.mt-3
+    = post.body
+    - if post.image.present?
+      = image_tag post.image, class: 'post-img mt-2'

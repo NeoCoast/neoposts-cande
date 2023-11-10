@@ -1,24 +1,10 @@
-.header
-  = link_to root_path do
-    = render partial: 'partials/header'
-
 .wrapper
-  .side-bar.d-flex.flex-column.align-items-center
-    = image_tag current_user.avatar, class: 'rounded-circle user-img'
-    .data
-      = current_user.nickname
-      %br
-      = current_user.email
-      %br
-      = current_user.first_name
-      = current_user.last_name
-      %br
-      = current_user.birthday.strftime('%d/%m/%Y')
-      %br
-      %br
-      = 'Posts: '
-      = @posts.count
-
+  .side
+    = render partial: 'side_user_data', locals: { user: @user, posts_count: @posts.count }
+    = render partial: 'following-followed', locals: { user: @user }
+    - if @user != current_user
+      - following = current_user.following?(@user).to_s
+      = render partial: 'partials/btn-follow', locals: { user: @user, following: following, is_current_user: false, is_side_user: true.to_s, in_following: false.to_s, in_followers: false.to_s }
   .posts-container.d-flex.flex-column
     - if @posts.present?
       = render partial: '/posts/post', collection: @posts

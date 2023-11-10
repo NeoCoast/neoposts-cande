@@ -1,8 +1,6 @@
-.header
-  = render partial: 'partials/header'
-
 .wrapper
-  = render partial: 'partials/side-bar'
+  .side
+    = render partial: 'partials/side-bar', locals: { user: current_user }
 
   .posts-container.d-flex.flex-column
     - if @posts.present?
