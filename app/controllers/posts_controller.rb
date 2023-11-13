@@ -19,7 +19,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.ordered_posts
+    @posts = current_user.followed_posts.ordered_posts
   end
 
   private
