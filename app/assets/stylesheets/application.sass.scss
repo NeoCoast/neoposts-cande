@@ -1,5 +1,6 @@
 // Entry point for your Sass build
 @import 'bootstrap';
+
 @import 'devise/signUp';
 @import 'devise/logIn';
 @import 'post/new';
@@ -9,3 +10,5 @@
 @import 'devise/edit';
 @import 'user/index';
 @import 'user/follow';
+// @import 'font-awesome-sprockets';
+// @import 'font-awesome';
