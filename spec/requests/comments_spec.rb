@@ -9,13 +9,19 @@ RSpec.describe 'Comments', type: :request do
     let(:user) { create :user }
     let(:comment) { create :comment, user:, commentable: post1 }
 
+    it 'with no logged user - redirects to login' do
+      post post_comments_path(post1),
+           params: { comment: { content: comment.content }, commentable_type: 'Post', commentable_id: post1.id }
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
     before do
       user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
-      sign_in user
     end
 
     context 'comment a post' do
       before do
+        sign_in user
         post post_comments_path(post1),
              params: { comment: { content: comment.content }, commentable_type: 'Post', commentable_id: post1.id }
       end
@@ -37,10 +43,15 @@ RSpec.describe 'Comments', type: :request do
              params: { comment: { content: comment.content }, commentable_type: 'Post', commentable_id: post1.id }
         expect(post1.comments.count).to be(count + 1)
       end
+
+      it 'verifies las comment content is correct' do
+        expect(Comment.last.content).to eq(comment.content)
+      end
     end
 
     context 'comment a comment' do
       before do
+        sign_in user
         post comment_comments_path(comment),
              params: { comment: { content: comment.content }, commentable_type: 'Comment', commentable_id: comment.id }
       end
@@ -61,6 +72,10 @@ RSpec.describe 'Comments', type: :request do
         post comment_comments_path(comment),
              params: { comment: { content: comment.content }, commentable_type: 'Comment', commentable_id: comment.id }
         expect(comment.comments.count).to be(count + 1)
+      end
+
+      it 'verifies las comment content is correct' do
+        expect(Comment.last.content).to eq(comment.content)
       end
     end
   end

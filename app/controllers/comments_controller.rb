@@ -2,10 +2,8 @@
 
 class CommentsController < ApplicationController
   def create
-    @comment = Comment.new(
-      user: current_user,
-      content: params[:comment][:content]
-    )
+    @comment = Comment.new(comment_params.merge(user: current_user))
+
     set_commentable(params[:commentable_type], params[:commentable_id])
 
     return unless @comment.save
@@ -20,8 +18,7 @@ class CommentsController < ApplicationController
   end
 
   def set_commentable(commentable_type, commentable_id)
-    @commentable = commentable_type.constantize.find(commentable_id)
-    @comment.commentable = @commentable
+    @comment.commentable = commentable_type.constantize.find(commentable_id)
   end
 
   def render_comment

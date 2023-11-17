@@ -2,5 +2,4 @@
   .col-md-1.user-img-new-comment
     = image_tag current_user.avatar, class: 'rounded-circle user-img-post m-0'
   .col-md-11
-    %input.form-control.comment-input.comment_comment{type: "text", name: "comment", placeholder: "Write a comment...", data: { parent_id: parent_id } }
-%hr
+    %input.form-control.comment-input.comment_comment{ type: "text", name: "comment", placeholder: "Write a comment...", data: { parent_id: parent_id } }

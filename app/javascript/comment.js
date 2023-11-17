@@ -1,5 +1,3 @@
-const { comment } = require("postcss");
-
 $(document).ready(function() {
 
   $('#post_comment').on('keypress', function(event) {
@@ -17,8 +15,6 @@ $(document).ready(function() {
       let commentsCount = $('.comments_count');
       commentsCount.text(parseInt(commentsCount.text(), 10) + 1);
 
-      const commentsContainer = document.querySelector('.comments-container');
-
       $.ajax({
         url: '/posts/' + parentId + '/comments',
         method: 'POST',
@@ -30,7 +26,7 @@ $(document).ready(function() {
           commentable_id: parentId,
         },
         success: function(data) {
-          
+          const commentsContainer = document.querySelector('.comments-container');
           const tempContainer = document.createElement('div');
           tempContainer.innerHTML = data.attachment_partial;
           commentsContainer.insertAdjacentHTML('afterbegin', tempContainer.innerHTML);
@@ -38,7 +34,6 @@ $(document).ready(function() {
           $('#post_comment').val('');
         },
       })
-
     }
   });
 
@@ -52,7 +47,8 @@ $(document).ready(function() {
       const parentId  = $(event.target).data('parent-id');
 
       if (commentText === '') {
-        return;
+        alert ('comment can not be blank');
+        return
       }
 
       $.ajax({
@@ -66,30 +62,30 @@ $(document).ready(function() {
           commentable_id: parentId,
         },
         success: function(data) {
-            const newCommentRow = event.target.closest('.new-comment-row');
-            const commentsComments = newCommentRow.previousElementSibling;
-            const tempContainer = document.createElement('div');
-            tempContainer.innerHTML = data.attachment_partial;
-            commentsComments.insertBefore(tempContainer.firstChild, commentsComments.firstChild);
-            
+          const newCommentRow = $(event.target).closest('.new-comment-row');
+          const linkElement = newCommentRow.next('.link-to-comments');
+          const commentsComments = linkElement.next('.comments-comments');
+         
+          const tempContainer = document.createElement('div');
+          tempContainer.innerHTML = data.attachment_partial
+          commentsComments.prepend(tempContainer);
+
+          const commentsCountElement = linkElement.find('.comment-count');
+          let currentCount = parseInt(commentsCountElement.text(), 10) || 0;
+          currentCount++;
+          commentsCountElement.text(currentCount.toString());
+
+          commentsComments.show();
   
-            const commentRowAbove = commentsComments.previousElementSibling;
-            const linkelement = commentRowAbove.querySelector('.link-to-comments');
-            const commentsCount = linkelement.querySelector('.comment-count');
-            let currentCount = parseInt(commentsCount.textContent, 10) || 0;
-            currentCount += 1;
-            commentsCount.textContent = currentCount;
-  
-            commentsComments.style.display = 'block';
-  
-            $(event.target).val('');
+          $(event.target).val('');
         },
       })
     }
   });
 
   $(document).on('click', '.link-to-comments', function(event) {
-    const commentsComments = $(this).closest('.comment-row').next('.comments-comments');
+    const commentsComments = $(event.target).next('.comments-comments');
+
     commentsComments.slideToggle();
   });
 });

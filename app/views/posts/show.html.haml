@@ -11,4 +11,4 @@
     .col-md-1
       = image_tag current_user.avatar, class: 'rounded-circle user-img-post m-0'
     .col-md-11
-      %input.form-control.comment-input#post_comment{type: "text", name: "comment", placeholder: "Write a comment...", data: { parent_id: @post.id } }
+      %input.form-control.comment-input#post_comment{ type: "text", name: "comment", placeholder: "Write a comment...", data: { parent_id: @post.id } }
