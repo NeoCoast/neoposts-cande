@@ -44,7 +44,7 @@ RSpec.describe 'Comments', type: :request do
         expect(post1.comments.count).to be(count + 1)
       end
 
-      it 'verifies las comment content is correct' do
+      it 'verifies last comment content is correct' do
         expect(Comment.last.content).to eq(comment.content)
       end
     end
@@ -74,7 +74,7 @@ RSpec.describe 'Comments', type: :request do
         expect(comment.comments.count).to be(count + 1)
       end
 
-      it 'verifies las comment content is correct' do
+      it 'verifies last comment content is correct' do
         expect(Comment.last.content).to eq(comment.content)
       end
     end
