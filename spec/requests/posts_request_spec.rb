@@ -127,7 +127,7 @@ RSpec.describe 'Posts', type: :request do
 
       it 'verifies users2 6 posts are shown' do
         posts.each do |post|
-          expect(response.body).to include(CGI.escapeHTML(post.title))
+          expect(response.body).to include(post.title)
         end
       end
 
@@ -142,7 +142,7 @@ RSpec.describe 'Posts', type: :request do
       end
 
       it 'verifies user3 post is not shown' do
-        expect(response.body).not_to include(CGI.escapeHTML(post3.title))
+        expect(response.body).not_to include(post3.title)
       end
     end
   end

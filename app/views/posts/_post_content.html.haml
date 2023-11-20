@@ -16,3 +16,9 @@
           = render partial: 'posts/post_elements', locals: { post: post }
       - else
         = render partial: 'posts/post_elements', locals: { post: post }
+  .to-comment
+    = link_to post_path(post, anchor: 'post_comment'), class: 'btn btn-comment btn-primary' do
+      comment
+    .comments_count
+      = post.comments.count
+
