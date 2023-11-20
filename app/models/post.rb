@@ -15,6 +15,12 @@ class Post < ApplicationRecord
 
   has_many :comments, as: :commentable
 
+  has_many :likes, as: :likeable
+
+  def liked_by_current_user?(current_user)
+    likes.exists?(user: current_user)
+  end
+
   private
 
   def set_published_at

@@ -63,14 +63,18 @@ $(document).ready(function() {
         },
         success: function(data) {
           const newCommentRow = $(event.target).closest('.new-comment-row');
-          const linkElement = newCommentRow.next('.link-to-comments');
-          const commentsComments = linkElement.next('.comments-comments');
+          const interactions = newCommentRow.next('.interactions.comment');
+          const hr = interactions.next('.comment-hr');
+
+
+          const commentsComments = hr.next('.comments-comments');
          
           const tempContainer = document.createElement('div');
           tempContainer.innerHTML = data.attachment_partial
           commentsComments.prepend(tempContainer);
 
-          const commentsCountElement = linkElement.find('.comment-count');
+          const linkToComments = interactions.find('.link-to-comments');
+          const commentsCountElement = linkToComments.find('.comment-count');
           let currentCount = parseInt(commentsCountElement.text(), 10) || 0;
           currentCount++;
           commentsCountElement.text(currentCount.toString());
@@ -84,7 +88,10 @@ $(document).ready(function() {
   });
 
   $(document).on('click', '.link-to-comments', function(event) {
-    const commentsComments = $(event.target).next('.comments-comments');
+    const interactions = $(event.target).closest('.interactions.comment');
+    $(event.target).val('');
+    const hr = interactions.next('.comment-hr');
+    const commentsComments = hr.next('.comments-comments');
 
     commentsComments.slideToggle();
   });
