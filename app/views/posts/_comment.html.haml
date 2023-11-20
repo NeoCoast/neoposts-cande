@@ -17,7 +17,8 @@
 = render partial: 'posts/new_comment_row', locals: { parent_id: comment.id }
 .interactions.comment
   .like
-    = button_tag 'Like', class: 'btn btn-primary btn-like', data: { liked: @liked_by_current_user, liakeable_id: comment.id, likeable_type: 'Comment' }
+    - liked = comment.likes.find_by(user_id: current_user.id).present?
+    = button_tag 'Like', class: 'btn btn-primary btn-like', data: { liked: liked, likeable_id: comment.id, likeable_type: 'Comment' }
     .likes_count
       = comment.likes.count
   .link-to-comments

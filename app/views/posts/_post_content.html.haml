@@ -18,7 +18,7 @@
         = render partial: 'posts/post_elements', locals: { post: post }
   .interactions
     .like
-      = button_tag 'Like', class: 'btn btn-primary btn-like', data: { liked: @liked_by_current_user, liakeable_id: post.id, likeable_type: 'Post' }
+      = button_tag 'Like', class: 'btn btn-primary btn-like', data: { liked: @post_liked_by_current_user, likeable_id: post.id, likeable_type: 'Post' }, remote: true
       .likes_count
         = post.likes.count
     = link_to post_path(post, anchor: 'post_comment'), class: 'btn btn-comment btn-primary' do

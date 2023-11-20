@@ -16,7 +16,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @liked_by_current_user = @post.liked_by_current_user?(current_user)
+    @post_liked_by_current_user = @post.liked_by_current_user?(current_user)
   end
 
   def index

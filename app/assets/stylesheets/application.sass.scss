@@ -1,10 +1,5 @@
 // Entry point for your Sass build
 @import 'bootstrap';
-
-/*
-  *= require font-awesome
-*/
-
 @import 'devise/signUp';
 @import 'devise/logIn';
 @import 'post/new';
