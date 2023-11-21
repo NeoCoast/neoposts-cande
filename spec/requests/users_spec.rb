@@ -150,64 +150,91 @@ RSpec.describe 'Users', type: :request do
       sign_in users[0]
     end
 
-    it 'verifies response is success' do
-      get users_path, params: { page: 1 }
-      expect(response).to have_http_status(:success)
-    end
-
-    it 'verifies users nicknames in first page' do
-      get users_path, params: { page: 1 }
-      users[0..5].each do |user|
-        expect(response.body).to include(user.nickname)
+    context 'with no search filter' do
+      it 'verifies response is success' do
+        get users_path, params: { page: 1 }
+        expect(response).to have_http_status(:success)
       end
-    end
 
-    it 'verifies users nicknames not in first page' do
-      get users_path, params: { page: 1 }
-      users[6..7].each do |user|
-        expect(response.body).not_to include(user.nickname)
+      it 'verifies users nicknames in first page' do
+        get users_path, params: { page: 1 }
+        users[0..5].each do |user|
+          expect(response.body).to include(user.nickname)
+        end
       end
-    end
 
-    it 'verifies users nicknames in second page' do
-      get users_path, params: { page: 2 }
-      users[6..7].each do |user|
-        expect(response.body).to include(user.nickname)
+      it 'verifies users nicknames not in first page' do
+        get users_path, params: { page: 1 }
+        users[6..7].each do |user|
+          expect(response.body).not_to include(user.nickname)
+        end
       end
-    end
 
-    it 'verifies users nicknames not in second page' do
-      get users_path, params: { page: 2 }
-      users[0..5].each do |user|
-        expect(response.body).not_to include(user.nickname)
+      it 'verifies users nicknames in second page' do
+        get users_path, params: { page: 2 }
+        users[6..7].each do |user|
+          expect(response.body).to include(user.nickname)
+        end
       end
-    end
 
-    it 'verifies users emails in first page' do
-      get users_path, params: { page: 1 }
-      users[0..5].each do |user|
-        expect(response.body).to include(user.email)
+      it 'verifies users nicknames not in second page' do
+        get users_path, params: { page: 2 }
+        users[0..5].each do |user|
+          expect(response.body).not_to include(user.nickname)
+        end
       end
-    end
 
-    it 'verifies users emails not in first page' do
-      get users_path, params: { page: 1 }
-      users[6..7].each do |user|
-        expect(response.body).not_to include(user.email)
+      it 'verifies users emails in first page' do
+        get users_path, params: { page: 1 }
+        users[0..5].each do |user|
+          expect(response.body).to include(user.email)
+        end
       end
-    end
 
-    it 'verifies users emails in second page' do
-      get users_path, params: { page: 2 }
-      users[6..7].each do |user|
-        expect(response.body).to include(user.email)
+      it 'verifies users emails not in first page' do
+        get users_path, params: { page: 1 }
+        users[6..7].each do |user|
+          expect(response.body).not_to include(user.email)
+        end
       end
-    end
 
-    it 'verifies users emails not in second page' do
-      get users_path, params: { page: 2 }
-      users[0..5].each do |user|
-        expect(response.body).not_to include(user.email)
+      it 'verifies users emails in second page' do
+        get users_path, params: { page: 2 }
+        users[6..7].each do |user|
+          expect(response.body).to include(user.email)
+        end
+      end
+
+      it 'verifies users emails not in second page' do
+        get users_path, params: { page: 2 }
+        users[0..5].each do |user|
+          expect(response.body).not_to include(user.email)
+        end
+      end
+
+      context 'with search filter' do
+        it 'verfies response is success' do
+          get users_path, params: { page: 1, search: users[0].nickname }
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'verifies nickname search works and is case insensititive' do
+          users[0].nickname = users[0].nickname.downcase
+          get users_path, params: { page: 1, search: users[0].nickname.upcase }
+          expect(response.body).to include(users[0].nickname)
+        end
+
+        it 'verifies first name search works and  is case insensititive' do
+          users[0].first_name = users[0].first_name.downcase
+          get users_path, params: { page: 1, search: users[0].first_name.upcase }
+          expect(response.body).to include(users[0].nickname)
+        end
+
+        it 'verifies users nicknames is not in the response' do
+          users[0].nickname = 'nickname not in the response'
+          get users_path, params: { page: 1, search: 'other nickname' }
+          expect(response.body).not_to include(users[0].nickname)
+        end
       end
     end
   end

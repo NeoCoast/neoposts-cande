@@ -1,5 +1,12 @@
 $(document).ready(function() {
-  $(document).on('click', '.btn-like', function() {
+  $('.btn-like').each(function() {
+    const self = $(this);
+    const liked = self.data('liked');
+    const styleClass = liked ? 'btn-unlike' : 'btn-like';
+    self.addClass(styleClass);
+  });
+
+  $(document).on('click', '.btn-like, .btn-unlike', function() {
     const self = $(this);
     const liked = self.data('liked');
     const interactionsRow = event.target.closest('.interactions');
@@ -11,6 +18,7 @@ $(document).ready(function() {
     const likeableType = self.data('likeable-type');
 
     if (liked) {
+      self.removeClass('btn-unlike').addClass('btn-like');
       $.ajax({
         url: `/${likeableType.toLowerCase()}s/${likeableId}/likes`,
         method: 'DELETE',
@@ -20,6 +28,7 @@ $(document).ready(function() {
         }
       })
     } else {
+      self.removeClass('btn-like').addClass('btn-unlike');
       $.ajax({
         url: `/${likeableType.toLowerCase()}s/${likeableId}/likes`,
         method: 'POST',

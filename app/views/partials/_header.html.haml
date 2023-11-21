@@ -3,3 +3,6 @@
     = image_tag 'Neocoast_Logos_RGB-06.svg', size: '83x40'
   - if user_signed_in?
     = link_to 'Users', users_path, class: 'button btn btn-primary btn-users'
+    = form_tag users_path, class: 'user-search', method: :get do
+      = text_field_tag :search, params[:search], id: 'search-input', class: 'input form-control search-input', placeholder: 'Search user'
+      = button_tag 'Search', class: 'btn btn-primary search-button', id: 'search-button'
