@@ -230,6 +230,12 @@ RSpec.describe 'Users', type: :request do
           expect(response.body).to include(users[0].nickname)
         end
 
+        it 'verifies last name search works and  is case insensititive' do
+          users[0].last_name = users[0].last_name.downcase
+          get users_path, params: { page: 1, search: users[0].last_name.upcase }
+          expect(response.body).to include(users[0].nickname)
+        end
+
         it 'verifies users nicknames is not in the response' do
           users[0].nickname = 'nickname not in the response'
           get users_path, params: { page: 1, search: 'other nickname' }

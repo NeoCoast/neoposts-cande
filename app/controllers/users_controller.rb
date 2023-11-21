@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     page_param = params[:page]
     search_param = params[:search]
     @users = if search_param.present?
-               @filtered_users = User.filter_users(search_param.downcase).order(:nickname).page page_param
+               User.filter_users(search_param.downcase).order(:nickname).page page_param
              else
                User.order(:nickname).page page_param
              end

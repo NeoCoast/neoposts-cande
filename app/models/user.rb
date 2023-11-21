@@ -54,7 +54,7 @@ class User < ApplicationRecord
 
   def self.filter_users(filter)
     User.where('LOWER(nickname) LIKE ?',
-               "%#{filter}%").or(User.where('LOWER(first_name) LIKE ?', "%#{filter}%"))
+               "%#{filter}%").or(User.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{filter}%"))
   end
 
   private
