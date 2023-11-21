@@ -52,6 +52,11 @@ class User < ApplicationRecord
     following.include?(other_user)
   end
 
+  def self.filter_users(filter)
+    User.where('LOWER(nickname) LIKE ?',
+               "%#{filter}%").or(User.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{filter}%"))
+  end
+
   private
 
   def capitalize_attributes
