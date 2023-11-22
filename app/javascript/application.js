@@ -5,4 +5,5 @@
 
 import './add_jquery'
 import './follow-button'
-
+import './comment'
+import './like'

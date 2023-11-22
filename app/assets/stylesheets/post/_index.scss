@@ -69,6 +69,7 @@ hr {
   border: 0.5px solid #6E80B1;
   opacity: 100;
   margin-top: 8px;
+  width: -webkit-fill-available;
 }
 
 .no-posts {
@@ -96,11 +97,21 @@ hr {
   word-wrap: break-word;
 }
 
-.posts-container .row:last-of-type {
+.posts-container .row.g-0:last-of-type {
   border-bottom: none;
 }
 
 a {
   text-decoration: auto;
   color: #626E90;
+}
+
+.btn-comment {
+  font-size: x-small;
+  width: fit-content;
+  border-color: #6E80B1;
+  background-color: #6E80B1;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }

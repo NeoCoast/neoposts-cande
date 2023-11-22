@@ -41,6 +41,8 @@ gem 'foreman', '~> 0.87.2'
 
 gem 'kaminari', '~> 1.2'
 
+gem 'font-awesome-sass', '~> 6.4.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'byebug'

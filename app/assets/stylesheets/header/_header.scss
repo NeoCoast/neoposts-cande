@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 75px;
+  padding-right: 230px;
   height: 75px;
   margin-bottom: 30px;
   background-color: #CCD2E4;
@@ -12,7 +13,26 @@
   background-color: #6E80B1;
   border-color: #6E80B1;
   padding: 5px;
-  margin-right: auto;
-  margin-left: 20px;
   width: 100px;
+}
+
+.user-search {
+  width: fit-content;
+  margin: auto;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: flex;
+}
+
+.search-button {
+  background-color: #6E80B1;
+  border-color: #6E80B1;
+  padding: 5px;
+  width: 100px;
+  color: white;
+  margin-left: 10px
+}
+
+.form-control.search-input {
+  width: 300px;
 }

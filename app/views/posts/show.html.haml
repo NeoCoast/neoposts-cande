@@ -1,5 +1,14 @@
-.posts-container.post-cont.d-flex.flex-column
+.posts-container.post-cont.d-flex.flex-column.mb-4
   .back-btn
     = link_to 'back', :back
   %hr
   = render partial: 'post_content', locals: { post: @post, post_links: false }
+
+  .comments-container.d-flex.flex-column.align-items-center
+    = render partial: 'comment', collection: @post.comments.order(created_at: :desc)
+
+  .new-comment-row-post
+    .col-md-1
+      = image_tag current_user.avatar, class: 'rounded-circle user-img-post m-0'
+    .col-md-11
+      %input.form-control.comment-input#post_comment{ type: "text", name: "comment", placeholder: "Write a comment...", data: { parent_id: @post.id } }

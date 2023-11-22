@@ -13,6 +13,10 @@ class Post < ApplicationRecord
 
   scope :ordered_posts, -> { order(published_at: :desc) }
 
+  has_many :comments, as: :commentable
+
+  has_many :likes, as: :likeable
+
   private
 
   def set_published_at

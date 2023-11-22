@@ -38,6 +38,8 @@ class User < ApplicationRecord
 
   has_many :followers, through: :passive_relationships
 
+  has_many :followed_posts, through: :following, source: :posts
+
   def follow(other_user)
     active_relationships.create!(followed_id: other_user.id)
   end
@@ -48,6 +50,11 @@ class User < ApplicationRecord
 
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def self.filter_users(filter)
+    User.where('LOWER(nickname) LIKE ?',
+               "%#{filter}%").or(User.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{filter}%"))
   end
 
   private
