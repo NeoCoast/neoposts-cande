@@ -9,7 +9,8 @@ $(document).ready(function() {
       const parentId  = $('#post_comment').data('parent-id');
 
       if (commentText === '') {
-        return;
+        alert ('comment cannot be blank');
+        return
       }
 
       let commentsCount = $('.comments_count');
@@ -47,7 +48,7 @@ $(document).ready(function() {
       const parentId  = $(event.target).data('parent-id');
 
       if (commentText === '') {
-        alert ('comment can not be blank');
+        alert ('comment cannot be blank');
         return
       }
 
@@ -64,10 +65,8 @@ $(document).ready(function() {
         success: function(data) {
           const newCommentRow = $(event.target).closest('.new-comment-row');
           const interactions = newCommentRow.next('.interactions.comment');
-          const hr = interactions.next('.comment-hr');
-
-
-          const commentsComments = hr.next('.comments-comments');
+        
+          const commentsComments = interactions.next('.comments-comments');
          
           const tempContainer = document.createElement('div');
           tempContainer.innerHTML = data.attachment_partial
@@ -89,10 +88,7 @@ $(document).ready(function() {
 
   $(document).on('click', '.link-to-comments', function(event) {
     const interactions = $(event.target).closest('.interactions.comment');
-    $(event.target).val('');
-    const hr = interactions.next('.comment-hr');
-    const commentsComments = hr.next('.comments-comments');
-
+    const commentsComments = interactions.next('.comments-comments');
     commentsComments.slideToggle();
   });
 });

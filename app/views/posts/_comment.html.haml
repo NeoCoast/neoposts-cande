@@ -22,11 +22,13 @@
     .likes_count
       = comment.likes.count
   .link-to-comments
-    view more
+    .more-less
+      view more
     (
     .comment-count
       = comment_comment_count
     )
-%hr.comment-hr
 .comments-comments
   = render partial: 'posts/comment', collection: comment.comments.order(created_at: :desc)
+- if comment.commentable_type == 'Post'
+  %hr.comment-hr
