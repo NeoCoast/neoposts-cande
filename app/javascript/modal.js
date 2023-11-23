@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  var cleanupData = localStorage.getItem('cleanupData');
+  let cleanupData = localStorage.getItem('cleanupData');
 
   if (cleanupData) {
       localStorage.removeItem('cleanupData');
@@ -23,8 +23,8 @@ $(document).ready(function() {
 
   $('.btn-delete-post').on('click', function () {
     const self = $(this);
-    var postId = self.data('post-id');
-    var inIndex = self.data('in-index');
+    let postId = self.data('post-id');
+    let inIndex = self.data('in-index');
     $('#modalId').hide();
     $.ajax({
       url: '/posts/' + postId,
@@ -35,7 +35,7 @@ $(document).ready(function() {
         if (inIndex) {
           self.closest('.row').remove();
           const postsContainer = document.querySelector(".posts-container");
-          if (postsContainer.querySelectorAll('.row-user').length === 0) {
+          if (! postsContainer.querySelectorAll('.row-user').length) {
             const newDiv = document.createElement('div');
             newDiv.style.margin= '20px 45px';
             newDiv.textContent = 'No posts found';
@@ -52,9 +52,6 @@ $(document).ready(function() {
             }, 1000); 
           });
         }
-      },
-      error: function (result) {
-        console.log(result);
       }
     });
   });

@@ -13,9 +13,9 @@ class Post < ApplicationRecord
 
   scope :ordered_posts, -> { order(published_at: :desc) }
 
-  has_many :comments, as: :commentable
+  has_many :comments, as: :commentable, dependent: :destroy
 
-  has_many :likes, as: :likeable
+  has_many :likes, as: :likeable, dependent: :destroy
 
   private
 

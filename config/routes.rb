@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   get '/:nickname', to: 'users#show', as: 'user_show'
   resources :likes, only: [:create, :destroy]
   resources :posts, only: %i[new create index] do
-    delete '/comments', to: 'comments#destroy_all', on: :member, as: 'delete_all_comments'
     resources :comments, only: %i[create]
   end
   resources :comments , only: %i[create] do

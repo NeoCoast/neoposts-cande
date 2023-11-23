@@ -148,9 +148,9 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe '#destroy_post_request' do
-    let(:new_post) { create :post, user: }
     image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
     let(:user) { create :user }
+    let(:new_post) { create :post, user: }
     let(:commentable) { create :comment, user:, commentable: new_post }
     let(:comment) { create :comment, user:, commentable: }
 
@@ -163,12 +163,9 @@ RSpec.describe 'Posts', type: :request do
       before do
         user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
         sign_in user
-        post post_likes_path(new_post),
-             params: { likeable_type: 'Post', likeable_id: new_post.id }
-        post post_likes_path(commentable),
-             params: { likeable_type: 'Comment', likeable_id: commentable.id }
-        post post_likes_path(comment),
-             params: { likeable_type: 'Comment', likeable_id: comment.id }
+        user.likes.create(likeable: new_post)
+        user.likes.create(likeable: commentable)
+        user.likes.create(likeable: comment)
       end
 
       it 'verifies response is success' do
@@ -188,7 +185,7 @@ RSpec.describe 'Posts', type: :request do
         expect(Like.count).to be(count - 3)
       end
 
-      it 'verifies comment likes count decreases' do
+      it 'verifies comment count decreases' do
         count = Comment.count
         delete post_path(new_post)
         expect(Comment.count).to be(count - 2)
@@ -198,6 +195,18 @@ RSpec.describe 'Posts', type: :request do
         count = user.posts.count
         delete post_path(new_post)
         expect(user.posts.count).to be(count - 1)
+      end
+
+      it 'verifies user comment count decreases' do
+        count = user.comments.count
+        delete post_path(new_post)
+        expect(user.comments.count).to be(count - 2)
+      end
+
+      it 'verifies user like count decreases' do
+        count = user.likes.count
+        delete post_path(new_post)
+        expect(user.likes.count).to be(count - 3)
       end
     end
   end
