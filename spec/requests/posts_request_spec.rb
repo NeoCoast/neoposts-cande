@@ -146,4 +146,59 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
+
+  describe '#destroy_post_request' do
+    let(:new_post) { create :post, user: }
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:commentable) { create :comment, user:, commentable: new_post }
+    let(:comment) { create :comment, user:, commentable: }
+
+    it 'with no logged user - redirects to login' do
+      delete post_path(new_post)
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    context 'with logged user' do
+      before do
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+        sign_in user
+        post post_likes_path(new_post),
+             params: { likeable_type: 'Post', likeable_id: new_post.id }
+        post post_likes_path(commentable),
+             params: { likeable_type: 'Comment', likeable_id: commentable.id }
+        post post_likes_path(comment),
+             params: { likeable_type: 'Comment', likeable_id: comment.id }
+      end
+
+      it 'verifies response is success' do
+        delete post_path(new_post)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'verifies post count decreases' do
+        count = Post.count
+        delete post_path(new_post)
+        expect(Post.count).to be(count - 1)
+      end
+
+      it 'verifies post likes count decreases' do
+        count = Like.count
+        delete post_path(new_post)
+        expect(Like.count).to be(count - 3)
+      end
+
+      it 'verifies comment likes count decreases' do
+        count = Comment.count
+        delete post_path(new_post)
+        expect(Comment.count).to be(count - 2)
+      end
+
+      it 'verifies user post count decreases' do
+        count = user.posts.count
+        delete post_path(new_post)
+        expect(user.posts.count).to be(count - 1)
+      end
+    end
+  end
 end

@@ -1,8 +1,8 @@
 .posts-container.post-cont.d-flex.flex-column.mb-4
   .back-btn
-    = link_to 'back', :back
+    back
   %hr
-  = render partial: 'post_content', locals: { post: @post, post_links: false }
+  = render partial: 'post_content', locals: { post: @post, post_links: false, in_index: false.to_s }
 
   .comments-container.d-flex.flex-column.align-items-center
     = render partial: 'comment', collection: @post.comments.order(created_at: :desc)

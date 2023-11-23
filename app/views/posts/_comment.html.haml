@@ -2,7 +2,7 @@
   .col-md-1.user-img-comment
     = link_to user_show_path(comment.user.nickname), class: 'user_link_info' do
       = image_tag comment.user.avatar, class: 'rounded-circle user-img-post m-0'
-  .col-md-11
+  .col-md-11.comment-content
     .comment-info.div.card
       = link_to user_show_path(comment.user.nickname), class: 'user_link_info' do
         = comment.user.nickname
@@ -10,8 +10,8 @@
         = comment.user.email
         |
         = distance_of_time_in_words(comment.created_at, Time.now) + ' ago'
-  .comment-content
-    = comment.content
+    .comment-content
+      = comment.content
   - comment_comment_count = comment.comments.count
 
 = render partial: 'posts/new_comment_row', locals: { parent_id: comment.id }
