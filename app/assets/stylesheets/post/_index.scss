@@ -115,3 +115,15 @@ a {
   margin-bottom: 10px;
   margin-right: 10px;
 }
+
+.post-intro {
+  display: flex;
+}
+
+.btn-delete {
+  height: fit-content;
+  border-color: #6E80B1;
+  background-color: #6E80B1;
+  margin-inline-start: auto;
+  align-self: end;
+}
