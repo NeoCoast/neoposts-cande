@@ -1,6 +1,7 @@
 .wrapper
   .side
     = render partial: 'partials/side-bar', locals: { user: current_user }
+    = render partial: 'partials/sort_posts'
 
   .posts-container.d-flex.flex-column
     - if @posts.present?

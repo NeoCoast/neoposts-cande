@@ -11,11 +11,25 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
-  scope :ordered_posts, -> { order(published_at: :desc) }
+  scope :by_publishing_date, -> { order(published_at: :desc) }
+  scope :by_likes, -> { order(likes_count: :desc) }
+
+  def self.by_trending(posts)
+    trending_posts = posts.sort_by do |post|
+      post.likes.size / (post.days_since_creation_exp / 4)
+    end
+    trending_posts.reverse
+  end
 
   has_many :comments, as: :commentable, dependent: :destroy
 
   has_many :likes, as: :likeable, dependent: :destroy
+
+  def days_since_creation_exp
+    time_difference = Time.now - published_at
+    days_difference = time_difference / (24 * 60 * 60)
+    Math.exp(days_difference)
+  end
 
   private
 
