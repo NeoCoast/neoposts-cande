@@ -5,9 +5,6 @@ $(document).ready(function() {
 
   $(document).on('click', '.dropdown-item', function() {
     $('.dropdown-menu').hide();
-  });
-
-  $(document).on('click', '.dropdown-item', function() {
     const self = $(this);
     const sortBy = self.data('sort-by');
     $.ajax ({
@@ -16,10 +13,12 @@ $(document).ready(function() {
       data: {
         sort_by: sortBy,
       },
-      dataType: 'script',
+      dataType: 'json',
       success: function(data) {
-        $('.posts-container').html(data);
+        $('.posts-container').html(data.attachment_partial);
         applyButtonStyling();
+        
+        $('.btn-dropdown').text(sortBy);
       }
     });
   });

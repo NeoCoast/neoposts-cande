@@ -22,7 +22,8 @@ class PostsController < ApplicationController
     posts = current_user.followed_posts
     sort_by = params[:sort_by]
     @posts = define_posts(sort_by, posts)
-    respond_to_index
+    attachment_partial = render_to_string(partial: 'posts/post', collection: @posts, locals: { in_index: true.to_s })
+    respond_to_index(attachment_partial)
   end
 
   def destroy
@@ -39,25 +40,23 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :body, :image)
   end
 
-  def respond_to_index
+  def respond_to_index(attachment_partial)
     respond_to do |format|
       format.html
-      format.js do
-        render partial: 'posts/post', collection: @posts, locals: { in_index: true.to_s }, layout: false,
-               content_type: 'text/html'
-      end
+      format.json { render json: { attachment_partial: } }
     end
   end
 
   # :reek:ControlParameter
+  # :reek:UtilityFunction
   def define_posts(sort_by, posts)
-    @posts = if sort_by == 'trending'
-               Post.by_trending(current_user.followed_posts)
-             elsif sort_by == 'likes'
-               posts.by_likes
-             else
-               posts.by_publishing_date
-             end
-    @posts
+    case sort_by
+    when 'Trending'
+      posts.by_trending
+    when 'Number of likes'
+      posts.by_likes
+    else
+      posts.by_publishing_date
+    end
   end
 end

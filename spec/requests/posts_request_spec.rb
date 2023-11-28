@@ -235,13 +235,13 @@ RSpec.describe 'Posts', type: :request do
     end
 
     it 'shows posts in liked order' do
-      get root_path, params: { sort_by: 'likes' }
+      get root_path, params: { sort_by: 'Number of likes' }
       expect(response.body.index(post2.title)).to be < response.body.index(post3.title)
       expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
     end
 
     it 'shows posts in trending' do
-      get root_path, params: { sort_by: 'trending' }
+      get root_path, params: { sort_by: 'Trending' }
       expect(response.body.index(post2.title)).to be < response.body.index(post4.title)
       expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
     end
