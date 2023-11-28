@@ -3,9 +3,11 @@
     = render partial: 'partials/side-bar', locals: { user: current_user }
     = render partial: 'partials/sort_posts'
 
-  .posts-container.d-flex.flex-column
+  .posts-container.filter-index.d-flex.flex-column
     - if @posts.present?
       = render partial: 'post', collection: @posts, locals: { in_index: true.to_s }
     - else
       .no-posts
         No posts found
+
+  = render partial: 'partials/filter_posts'
