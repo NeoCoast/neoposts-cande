@@ -11,7 +11,15 @@ class Post < ApplicationRecord
 
   has_one_attached :image
 
-  scope :ordered_posts, -> { order(published_at: :desc) }
+  scope :by_publishing_date, -> { order(published_at: :desc) }
+  scope :by_likes, -> { order(likes_count: :desc) }
+  scope :by_trending, lambda {
+    select(
+      'posts.*, ' \
+      '(likes_count / ' \
+      '(EXP(EXTRACT(EPOCH FROM (CURRENT_TIMESTAMP - published_at)) / (24 * 60 * 60)) / 4)) AS trending'
+    ).order('trending DESC')
+  }
 
   has_many :comments, as: :commentable, dependent: :destroy
 

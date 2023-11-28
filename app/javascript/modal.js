@@ -3,9 +3,9 @@ $(document).ready(function() {
   let cleanupData = localStorage.getItem('cleanupData');
 
   if (cleanupData) {
-      localStorage.removeItem('cleanupData');
+    localStorage.removeItem('cleanupData');
 
-      window.location.reload();
+    window.location.reload();
   }
 
   $(window).on('beforeunload', function () {

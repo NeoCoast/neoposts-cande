@@ -210,4 +210,40 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
+
+  describe '#sort_posts_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:user2) { create :user }
+
+    let!(:post4) { create :post, user: user2 }
+    let!(:post3) { create :post, user: user2 }
+    let!(:post2) { create :post, user: user2 }
+
+    before do
+      user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      sign_in user
+      user.likes.create(likeable: post2)
+      user.likes.create(likeable: post4)
+      user.follow(user2)
+    end
+
+    it 'shows posts in date order' do
+      get root_path, params: { sort_by: '' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post3.title)
+      expect(response.body.index(post2.title)).to be < response.body.index(post4.title)
+    end
+
+    it 'shows posts in liked order' do
+      get root_path, params: { sort_by: 'Number of likes' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post3.title)
+      expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
+    end
+
+    it 'shows posts in trending' do
+      get root_path, params: { sort_by: 'Trending' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post4.title)
+      expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
+    end
+  end
 end
