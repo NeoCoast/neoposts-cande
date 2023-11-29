@@ -246,4 +246,58 @@ RSpec.describe 'Posts', type: :request do
       expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
     end
   end
+
+  describe '#filter_posts_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:user2) { create :user }
+    let(:user3) { create :user }
+
+    let!(:post2) { create :post, user: user2, title: 'title2', body: 'body2' }
+    let!(:post3) { create :post, user: user3, title: 'title3', body: 'body3' }
+
+    before do
+      user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      post3.update(published_at: Time.now - 1.month)
+      sign_in user
+      user.follow(user2)
+      user.follow(user3)
+    end
+
+    it 'filters posts by author' do
+      get root_path, params: { author_filter: user2.nickname }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by title' do
+      get root_path, params: { title_filter: post2.title }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by body' do
+      get root_path, params: { body_filter: post2.body }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - day' do
+      get root_path, params: { date_filter: 'Last day' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - week' do
+      get root_path, params: { date_filter: 'Last week' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - month' do
+      get root_path, params: { date_filter: 'Last month' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+  end
 end

@@ -35,7 +35,7 @@ $(document).ready(function() {
         if (inIndex) {
           self.closest('.row').remove();
           const postsContainer = document.querySelector(".posts-container");
-          if (! postsContainer.querySelectorAll('.row-user').length) {
+          if ( postsContainer.querySelectorAll('.row').length === 0) {
             const newDiv = document.createElement('div');
             newDiv.style.margin= '20px 45px';
             newDiv.textContent = 'No posts found';

@@ -3,21 +3,41 @@ $(document).ready(function() {
     $('.dropdown-menu').toggle();
   });
 
-  $(document).on('click', '.dropdown-item', function() {
+  $(document).on('click', '.dropdown-item, .btn-apply', function() {
     $('.dropdown-menu').hide();
-    const self = $(this);
-    const sortBy = self.data('sort-by');
+
+    if ($(this).hasClass('dropdown-item')) {
+      var sortBy = $(this).data('sort-by');
+    } else if ($(this).hasClass('btn-apply')) {
+      var sortBy = $('.btn-dropdown').text();
+    } 
+
+    const authorFilter = $('.author-filter').val();
+    const titleFilter = $('.title-filter').val();
+    const bodyFilter = $('.body-filter').val();
+    const dateFilter = $('input[name="date_filter"]:checked').val();
+
     $.ajax ({
       url: '/posts',
       method: 'GET',
       data: {
         sort_by: sortBy,
+        author_filter: authorFilter,
+        title_filter: titleFilter,
+        body_filter: bodyFilter,
+        date_filter: dateFilter
       },
       dataType: 'json',
       success: function(data) {
         $('.posts-container').html(data.attachment_partial);
+        if (data.attachment_partial === ' ') {
+          const postsContainer = document.querySelector(".posts-container");
+          const newDiv = document.createElement('div');
+          newDiv.style.margin= '20px 45px';
+          newDiv.textContent = 'No posts found';
+          postsContainer.appendChild(newDiv);
+        }
         applyButtonStyling();
-        
         $('.btn-dropdown').text(sortBy);
       }
     });
