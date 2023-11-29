@@ -12,9 +12,9 @@ $(document).ready(function() {
       var sortBy = $('.btn-dropdown').text();
     } 
 
-    const authorFilter =$('.author-filter').val();
-    const titleFilter =$('.title-filter').val();
-    const bodyFilter =$('.body-filter').val();
+    const authorFilter = $('.author-filter').val();
+    const titleFilter = $('.title-filter').val();
+    const bodyFilter = $('.body-filter').val();
     const dateFilter = $('input[name="date_filter"]:checked').val();
 
     $.ajax ({
@@ -30,7 +30,6 @@ $(document).ready(function() {
       dataType: 'json',
       success: function(data) {
         $('.posts-container').html(data.attachment_partial);
-        console.log(data.attachment_partial)
         if (data.attachment_partial === ' ') {
           const postsContainer = document.querySelector(".posts-container");
           const newDiv = document.createElement('div');
