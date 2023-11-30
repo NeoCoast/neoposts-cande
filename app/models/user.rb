@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable, :validatable, :rememberable
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable,
+         :rememberable, :validatable
+  include DeviseTokenAuth::Concerns::User
 
   validates :nickname,
             uniqueness: { case_sensitive: false }
@@ -9,8 +12,9 @@ class User < ApplicationRecord
   before_save :capitalize_attributes
 
   validates :email,
-            uniqueness: { case_sensitive: false },
-            format: { with: /\A[^@\s]+@[^@\s]+\.[a-z]+\z/i, message: 'Email needs to include a "@" and ".com"' },
+            uniqueness: { case_sensitive: false, scope: :provider },
+            format: { with: /\A[^@\s]+@[^@\s]+\.[a-z]+\z/i,
+                      message: 'Email needs to include a "@" and ".com"' },
             if: -> { email.present? }
 
   validates :nickname, format: { without: /\./, message: 'should not include a period (".")' }
@@ -58,7 +62,8 @@ class User < ApplicationRecord
 
   def self.filter_users(filter)
     User.where('LOWER(nickname) LIKE ?',
-               "%#{filter}%").or(User.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?", "%#{filter}%"))
+               "%#{filter}%").or(User.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?",
+                                            "%#{filter}%"))
   end
 
   private

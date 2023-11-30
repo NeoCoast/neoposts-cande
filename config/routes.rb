@@ -26,4 +26,11 @@ Rails.application.routes.draw do
     resources :likes, only: [:create], on: :member
     delete '/likes', to: 'likes#destroy', on: :member, as: :comment_likes_destroy
   end
+
+  namespace :api, defaults: { format: "json" } do
+    mount_devise_token_auth_for 'User', at: 'auth'
+    namespace :v1 do
+      resources :users, only: [:index]
+    end
+  end
 end

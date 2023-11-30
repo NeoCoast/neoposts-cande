@@ -1,24 +1,47 @@
-# README
+# API Documentation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## GET api/v1/users
 
-Things you may want to cover:
+- Params: None
 
-* Ruby version
+- Body: None
 
-* System dependencies
+- Headers: Bearer token, client and uid. uid is users email and bearer token and client can be retrieved from the headers of the response of signing in the user (/api/auth/sign_in)
 
-* Configuration
+### Responses
 
-* Database creation
+- Success 200: Renders all users with their ids, nicknames, first names, last names and birthdays in JSON format.
 
-* Database initialization
+  [
+  {
+  "id": 1,
+  "email": "juan@mail.com",
+  "nickname": "juan",
+  "first_name": "juan",
+  "last_name": "lopez",
+  "birthday": "2001-06-15"
+  },
+  {
+  "id": 2,
+  "email": "maria@mail.com",
+  "nickname": "maria",
+  "first_name": "maria",
+  "last_name": "sanchez",
+  "birthday": "1998-09-28"
+  },
+  {
+  "id": 3,
+  "email": "jose@mail.com",
+  "nickname": "jose",
+  "first_name": "jose",
+  "last_name": "perez",
+  "birthday": "2002-10-21"
+  },
+  ]
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Unauthorized 401:
+  {
+  "errors": [
+  "You need to sign in or sign up before continuing."
+  ]
+  }
