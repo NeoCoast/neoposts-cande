@@ -13,6 +13,7 @@
 - Success 200: Renders all users with their ids, nicknames, first names, last names and birthdays in JSON format.
 
   [
+  
   {
   "id": 1,
   "email": "juan@mail.com",
@@ -37,9 +38,11 @@
   "last_name": "perez",
   "birthday": "2002-10-21"
   },
+  
   ]
 
-- Unauthorized 401:
+- Unauthorized 401: renders the following error
+  
   {
   "errors": [
   "You need to sign in or sign up before continuing."
