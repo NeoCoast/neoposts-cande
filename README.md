@@ -1,24 +1,92 @@
-# README
+# API Documentation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## POST api/auth/sign_in
 
-Things you may want to cover:
+- Params: None
 
-* Ruby version
+- Body: Json containing valid user's email and password
 
-* System dependencies
+- Headers: None
 
-* Configuration
+### Responses
 
-* Database creation
+- Success 200: renders the users data
 
-* Database initialization
+```
+{
+  "data": {
+    "email": "juan@mail.com",
+    "provider": "email",
+    "uid": "juan@mail.com",
+    "id": 1,
+    "first_name": "Juan",
+    "last_name": "Lopez",
+    "nickname": "juaan",
+    "birthday": "2023-10-13"
+  }
+}
+```
 
-* How to run the test suite
+- Unauthorized 401: renders the following error
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+  {
+    "success": false,
+    "errors": [
+      "Invalid login credentials. Please try again."
+    ]
+  }
+```
 
-* Deployment instructions
+## GET api/v1/users
 
-* ...
+- Params: None
+
+- Body: None
+
+- Headers: Bearer token, client and uid. uid is the user's email and bearer token and client can be retrieved from the headers of the response of signing in the user (/api/auth/sign_in)
+
+### Responses
+
+- Success 200: Renders all users with their ids, nicknames, first names, last names and birthdays in JSON format.
+
+```
+  [
+    {
+      "id": 1,
+      "email": "juan@mail.com",
+      "nickname": "juaaan",
+      "first_name": "Juan",
+      "last_name": "Lopez",
+      "birthday": "2001-06-15"
+    },
+
+    {
+      "id": 2,
+      "email": "maria@mail.com",
+      "nickname": "maria",
+      "first_name": "Maria",
+      "last_name": "Sanchez",
+      "birthday": "1998-09-28"
+    },
+
+    {
+      "id": 3,
+      "email": "jose@mail.com",
+      "nickname": "Jose",
+      "first_name": "Jose",
+      "last_name": "Perez",
+      "birthday": "2002-10-21"
+    },
+  ]
+```
+
+- Unauthorized 401: renders the following error
+
+```
+  {
+    "errors": [
+      "You need to sign in or sign up before continuing."
+    ]
+  }
+```

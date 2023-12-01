@@ -27,7 +27,7 @@ class Post < ApplicationRecord
 
   scope :filter_author, lambda { |author_filter|
                           if author_filter.present?
-                            where(user_id: User.where('LOWER(nickname) = ?', author_filter.downcase).first.id)
+                            joins(:user).where('LOWER(users.nickname) = ?', author_filter.downcase)
                           end
                         }
   scope :filter_title, ->(title_filter) { where(title: title_filter) if title_filter.present? }

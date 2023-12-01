@@ -47,7 +47,7 @@ $(document).ready(function() {
 
           const followersContainer = document.querySelector(".followers-container");
           if (followersContainer.querySelectorAll('.row-user').length === 0) {
-            $('.no-follow').show();
+            $('.no-posts.no-follow').show();
           } 
         }
       }
@@ -85,7 +85,7 @@ $(document).ready(function() {
             tempContainer.innerHTML = data.attachment_partial;
             followersContainer.appendChild(tempContainer.firstChild);
 
-            $('.no-follow').hide();
+            $('.no-posts.no-follow').hide();
           }
         },
       })
