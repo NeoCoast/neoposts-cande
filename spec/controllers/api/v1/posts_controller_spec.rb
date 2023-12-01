@@ -2,20 +2,21 @@
 
 require 'rails_helper'
 
-RSpec.describe Api::V1::UsersController, type: :request do
+RSpec.describe Api::V1::PostsController, type: :request do
   describe 'GET #index' do
     let!(:user) { create :user, password: 'password' }
-    let!(:users) { create_list(:user, 3) }
+    let!(:post2) { create :post, user: }
+    let!(:post3) { create :post, user: }
     let!(:headers) { user.create_new_auth_token.merge('ACCEPT' => 'application/json') }
 
     it 'with no token' do
-      get api_v1_users_path
+      get api_v1_user_posts_path(user.id)
       expect(response).not_to have_http_status(:success)
     end
 
     context 'with valid token' do
       before do
-        get api_v1_users_path, headers:
+        get api_v1_user_posts_path(user.id), headers:
       end
 
       it 'returns http success' do
@@ -24,17 +25,17 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
       it 'verify json matches wanted structure' do
         json_response = JSON.parse(response.body)
-        expect(json_response[0].keys).to match_array(%w[id email nickname first_name last_name birthday])
+        expect(json_response[0].keys).to match_array(%w[id title body published_at user_id likes_count comments_count])
       end
 
-      it 'shows correct amount of users' do
+      it 'shows correct amount of posts' do
         json = JSON.parse(response.body)
-        expect(json.length).to eq(User.count)
+        expect(json.length).to eq(user.posts.count)
       end
 
-      it 'shows all users' do
-        User.all.each do |user|
-          expect(response.body).to include(user.nickname)
+      it 'shows all users posts' do
+        user.posts.each do |post|
+          expect(response.body).to include(post.title)
         end
       end
     end

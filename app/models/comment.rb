@@ -3,7 +3,7 @@
 class Comment < ApplicationRecord
   validates_presence_of :content
 
-  belongs_to :commentable, polymorphic: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true
 
   has_many :comments, as: :commentable, dependent: :destroy
 
