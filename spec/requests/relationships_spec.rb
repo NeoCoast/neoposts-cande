@@ -29,6 +29,13 @@ RSpec.describe 'Relationships', type: :request do
       post relationships_path, params: { relationship: { followed_id: followed.id } }
       expect(follower.following?(followed)).to be_truthy
     end
+
+    it 'verifies user cant follow a user twice' do
+      post relationships_path, params: { relationship: { followed_id: followed.id } }
+      count = Relationship.count
+      post relationships_path, params: { relationship: { followed_id: followed.id } }
+      expect(Relationship.count).to be(count)
+    end
   end
 
   describe 'unfollow user' do
