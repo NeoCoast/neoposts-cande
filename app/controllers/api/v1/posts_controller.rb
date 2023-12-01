@@ -9,6 +9,12 @@ module Api
       rescue ActiveRecord::RecordNotFound
         render json: { message: 'User does not exist' }, status: :not_found
       end
+
+      def show
+        @post = Post.find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'Post does not exist' }, status: :not_found
+      end
     end
   end
 end
