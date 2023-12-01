@@ -127,6 +127,14 @@
   ]
 ```
 
+- Not found 404: rendrs the following error
+
+```
+  {
+    "message": "User does not exist"
+  }
+```
+
 - Unauthorized 401: renders the following error
 
 ```

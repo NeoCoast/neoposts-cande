@@ -6,6 +6,8 @@ module Api
       def index
         user = User.find(params[:user_id])
         @posts = user.posts
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'User does not exist' }, status: :not_found
       end
     end
   end
