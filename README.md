@@ -90,3 +90,57 @@
     ]
   }
 ```
+
+## GET api/v1/users/:user_id/posts
+
+- Params: None
+
+- Body: None
+
+- Headers: Bearer token, client and uid. uid is the user's email and bearer token and client can be retrieved from the headers of the response of signing in the user (/api/auth/sign_in)
+
+### Responses
+
+- Success 200: Renders all user's posts with their ids, titles, bodies, pubished_at, user_id, comment_count and likes_count attributes.
+
+```
+  [
+    {
+      "id": 1,
+      "title": "title1",
+      "body": "body for the first post",
+      "published_at": "2023-10-19T15:00:26.269Z",
+      "user_id": 11,
+      "comments_count": 0,
+      "likes_count": 11
+    },
+
+    {
+      "id": 2,
+      "title": "title 2",
+      "body": "body for the second post",
+      "published_at": "2023-10-19T15:00:26.269Z",
+      "user_id": 11,
+      "comments_count": 4,
+      "likes_count": 1
+    },
+  ]
+```
+
+- Not found 404: rendrs the following error
+
+```
+  {
+    "message": "User does not exist"
+  }
+```
+
+- Unauthorized 401: renders the following error
+
+```
+  {
+    "errors": [
+      "You need to sign in or sign up before continuing."
+    ]
+  }
+```

@@ -27,7 +27,7 @@ RSpec.describe Api::V1::UsersController, type: :request do
         expect(json_response[0].keys).to match_array(%w[id email nickname first_name last_name birthday])
       end
 
-      it 'shows all users' do
+      it 'shows correct amount of users' do
         json = JSON.parse(response.body)
         expect(json.length).to eq(User.count)
       end
