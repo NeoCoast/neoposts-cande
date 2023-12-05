@@ -127,7 +127,7 @@
   ]
 ```
 
-- Not found 404: rendrs the following error
+- Not found 404: renders the following error
 
 ```
   {
@@ -143,4 +143,94 @@
       "You need to sign in or sign up before continuing."
     ]
   }
+```
+
+## GET api/v1/posts/:post_id
+
+- Params: None
+
+- Body: None
+
+- Headers: Bearer token, client and uid. uid is the user's email and bearer token and client can be retrieved from the headers of the response of signing in the user (/api/auth/sign_in)
+
+### Responses
+
+- Success 200: Renders posts id, title, body, pubished_at, user_id attributes and post's likes and comments.
+
+```
+  {
+    "id": 1,
+    "title": "title1",
+    "body": "body for the first post",
+    "published_at": "2023-10-16T16:57:59.301Z",
+    "user_id": 1,
+    "likes": [
+        {
+          "user_id": 1,
+          "nickname": "juan"
+        },
+        {
+          "user_id": 2,
+          "nickname": "maria"
+        }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "content": "comment1",
+        "replies": [
+          {
+            "id": 2,
+            "content": "comment del comment1",
+            "replies": []
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "content": "otro comment del post",
+        "replies": []
+      },
+      {
+        "id": 4,
+        "content": "y otro comentario del post",
+        "replies": [
+          {
+            "id": 5,
+            "content": "comment del tercer comment del post",
+            "replies": [
+              {
+                "id": 6,
+                "content": "comment del comment del tercer comment del post",
+                "replies": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+```
+
+- Not found 404: renders the following error
+
+```
+
+  {
+    "status": 404,
+    "message": "Post does not exist"
+  }
+
+```
+
+- Unauthorized 401: renders the following error
+
+```
+
+  {
+    "errors": [
+      "You need to sign in or sign up before continuing."
+    ]
+  }
+
 ```
