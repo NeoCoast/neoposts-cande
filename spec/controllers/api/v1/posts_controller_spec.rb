@@ -167,7 +167,7 @@ RSpec.describe Api::V1::PostsController, type: :request do
         it 'returns http bad request' do
           post(api_v1_user_posts_path(user.id), params: post_params, headers:)
           expect(response).to have_http_status(:bad_request)
-          expect(response.body).to eq({ errors: { body: ["can't be blank"] } }.to_json)
+          expect(response.body).to eq({ message: 'Title and body cannot be blank' }.to_json)
         end
 
         it 'verifies post count does not increase' do
@@ -189,7 +189,7 @@ RSpec.describe Api::V1::PostsController, type: :request do
         it 'returns http bad request' do
           post(api_v1_user_posts_path(user.id), params: post_params, headers:)
           expect(response).to have_http_status(:bad_request)
-          expect(response.body).to eq({ errors: { title: ["can't be blank"] } }.to_json)
+          expect(response.body).to eq({ message: 'Title and body cannot be blank' }.to_json)
         end
 
         it 'verifies post count does not increase' do
@@ -253,7 +253,7 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
         it 'returns http bad request' do
           expect(response).to have_http_status(:bad_request)
-          expect(response.body).to eq({ errors: { body: ["can't be blank"] } }.to_json)
+          expect(response.body).to eq({ message: 'Title and body cannot be blank' }.to_json)
         end
 
         it 'verifies last post was not updated' do
@@ -269,7 +269,7 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
         it 'returns http bad request' do
           expect(response).to have_http_status(:bad_request)
-          expect(response.body).to eq({ errors: { title: ["can't be blank"] } }.to_json)
+          expect(response.body).to eq({ message: 'Title and body cannot be blank' }.to_json)
         end
 
         it 'verifies last post was not updated' do
