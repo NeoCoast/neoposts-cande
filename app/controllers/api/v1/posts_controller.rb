@@ -20,12 +20,28 @@ module Api
         @post.save if validate_post(@user, @post)
       end
 
+      def update
+        @post = Post.find(params[:id])
+        @post.update(params.require(:post).permit(:title, :body))
+        if validate_not_empty_attriutes(@post)
+          @post.save
+          render 'api/v1/posts/create', formats: [:json], locals: { post: @post }
+        end
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'Post does not exist' }, status: :not_found
+      end
+
       # :reek:ControlParameter
       def validate_post(user, post)
         if user != current_user
           render json: { message: 'Unauthorized' }, status: :unauthorized
           return false
-        elsif !post.valid?
+        end
+        validate_not_empty_attriutes(post)
+      end
+
+      def validate_not_empty_attriutes(post)
+        unless post.valid?
           render json: { errors: post.errors }, status: :bad_request
           return false
         end

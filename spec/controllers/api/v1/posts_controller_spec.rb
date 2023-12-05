@@ -206,4 +206,77 @@ RSpec.describe Api::V1::PostsController, type: :request do
       end
     end
   end
+
+  describe 'PUT #update' do
+    let!(:user) { create :user, password: 'password' }
+    let(:new_post) { create :post }
+    let!(:headers) { user.create_new_auth_token.merge('ACCEPT' => 'application/json') }
+
+    it 'with no token' do
+      put api_v1_post_path(new_post.id)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ errors: ['You need to sign in or sign up before continuing.'] }.to_json)
+    end
+
+    it 'with invalid user id' do
+      put(api_v1_post_path(0), headers:)
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).to eq({ message: 'Post does not exist' }.to_json)
+    end
+
+    context 'with valid token' do
+      context 'with valid params' do
+        let(:post_params) { attributes_for :post }
+        before do
+          put api_v1_post_path(new_post.id), params: { post: post_params }, headers:
+        end
+
+        it 'returns http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'verifies last post was updated' do
+          expect(Post.last).to have_attributes(post_params)
+        end
+
+        it 'verifies post count does not increase' do
+          count = Post.count
+          put(api_v1_post_path(new_post.id), params: { post: post_params }, headers:)
+          expect(Post.count).to be(count)
+        end
+      end
+
+      context 'with empty body' do
+        before do
+          put api_v1_post_path(new_post.id), params: { post: { title: 'title', body: '' } }, headers:
+        end
+
+        it 'returns http bad request' do
+          expect(response).to have_http_status(:bad_request)
+          expect(response.body).to eq({ errors: { body: ["can't be blank"] } }.to_json)
+        end
+
+        it 'verifies last post was not updated' do
+          expect(Post.last.body).to eq(new_post.body)
+          expect(Post.last.title).to eq(new_post.title)
+        end
+      end
+
+      context 'with empty title' do
+        before do
+          put api_v1_post_path(new_post.id), params: { post: { title: '', body: 'body' } }, headers:
+        end
+
+        it 'returns http bad request' do
+          expect(response).to have_http_status(:bad_request)
+          expect(response.body).to eq({ errors: { title: ["can't be blank"] } }.to_json)
+        end
+
+        it 'verifies last post was not updated' do
+          expect(Post.last.body).to eq(new_post.body)
+          expect(Post.last.title).to eq(new_post.title)
+        end
+      end
+    end
+  end
 end
