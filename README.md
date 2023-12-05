@@ -284,7 +284,80 @@
 - Not found 404: renders the following error
 
 ```
+  {
+    "status": 404,
+    "message": "User does not exist"
+  }
 
+```
+
+- Unauthorized 401: renders the following error if the headers are not provided
+
+```
+  {
+    "errors": [
+      "You need to sign in or sign up before continuing."
+    ]
+  }
+```
+
+or this one in case the user_id from the route is not the logged in user
+
+```
+  {
+    "message": "Unauthorized"
+  }
+```
+
+## PUT api/v1/posts/:post_id
+
+- Params: None
+
+- Body: json containing title and body for the post
+
+- Headers: Bearer token, client and uid. uid is the user's email and bearer token and client can be retrieved from the headers of the response of signing in the user (/api/auth/sign_in)
+
+### Responses
+
+- Success 200: Renders the updated post with its id, title, body, pubished_at, user_id, comment_count and likes_count attributes.
+
+```
+  {
+    "id": 1,
+    "title": "title1",
+    "body": "body for the first post",
+    "published_at": "2023-10-19T15:00:26.269Z",
+    "user_id": 11,
+    "comments_count": 0,
+    "likes_count": 0
+    },
+```
+
+- Bad request 400: renders the following error for body or title
+
+```
+{
+  "errors": {
+    "body": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+```
+{
+  "errors": {
+    "title": [
+      "can't be blank"
+    ]
+  }
+}
+```
+
+- Not found 404: renders the following error
+
+```
   {
     "status": 404,
     "message": "User does not exist"
@@ -295,11 +368,9 @@
 - Unauthorized 401: renders the following error
 
 ```
-
   {
     "errors": [
       "You need to sign in or sign up before continuing."
     ]
   }
-
 ```
