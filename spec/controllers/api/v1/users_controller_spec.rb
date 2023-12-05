@@ -10,7 +10,8 @@ RSpec.describe Api::V1::UsersController, type: :request do
 
     it 'with no token' do
       get api_v1_users_path
-      expect(response).not_to have_http_status(:success)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ errors: ['You need to sign in or sign up before continuing.'] }.to_json)
     end
 
     context 'with valid token' do
