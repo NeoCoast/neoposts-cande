@@ -38,5 +38,6 @@ UseMultipartAlternativeAsContentTypeOfEmailCheck: {}
 UseObserverCheck: {}
 UseQueryAttributeCheck: {}
 UseSayWithTimeInMigrationsCheck: {}
-UseScopeAccessCheck: {}
+UseScopeAccessCheck:
+  { ignored_files: "app/controllers/api/v1/posts_controller.rb" }
 UseTurboSprocketsRails3Check: {}

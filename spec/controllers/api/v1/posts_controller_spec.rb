@@ -17,6 +17,12 @@ RSpec.describe Api::V1::PostsController, type: :request do
       expect(response.body).to eq({ errors: ['You need to sign in or sign up before continuing.'] }.to_json)
     end
 
+    it 'with invalid user id' do
+      get(api_v1_user_posts_path(0), headers:)
+      expect(response).to have_http_status(:not_found)
+      expect(response.body).to eq({ message: 'User does not exist' }.to_json)
+    end
+
     context 'with valid token' do
       before do
         get api_v1_user_posts_path(user.id), headers:
@@ -148,6 +154,10 @@ RSpec.describe Api::V1::PostsController, type: :request do
           count = user.posts.count
           post(api_v1_user_posts_path(user.id), params: { post: new_post }, headers:)
           expect(user.posts.count).to be(count + 1)
+        end
+
+        it 'verifies las post is correct' do
+          expect(Post.last).to have_attributes(new_post)
         end
       end
 

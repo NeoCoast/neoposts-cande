@@ -3,11 +3,10 @@
 module Api
   module V1
     class PostsController < Api::V1::BaseController
+      before_action :find_user, only: %i[index create]
+
       def index
-        user = User.find(params[:user_id])
-        @posts = user.posts
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: 'User does not exist' }, status: :not_found
+        @posts = @user.posts
       end
 
       def show
@@ -17,15 +16,13 @@ module Api
       end
 
       def create
-        user = User.find(params[:user_id])
-        @post = user.posts.build(params.require(:post).permit(:title, :body))
-        @post.save if validate_post(user, @post)
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: 'User does not exist' }, status: :not_found
+        @post = @user.posts.build(params.require(:post).permit(:title, :body))
+        @post.save if validate_post(@user, @post)
       end
 
+      # :reek:ControlParameter
       def validate_post(user, post)
-        if user.email != request.headers['uid']
+        if user != current_user
           render json: { message: 'Unauthorized' }, status: :unauthorized
           return false
         elsif !post.valid?
@@ -33,6 +30,12 @@ module Api
           return false
         end
         true
+      end
+
+      def find_user
+        @user = User.find(params[:user_id])
+      rescue ActiveRecord::RecordNotFound
+        render json: { message: 'User does not exist' }, status: :not_found
       end
     end
   end
