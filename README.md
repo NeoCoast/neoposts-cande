@@ -127,7 +127,7 @@
   ]
 ```
 
-- Not found 404: rendrs the following error
+- Not found 404: renders the following error
 
 ```
   {
