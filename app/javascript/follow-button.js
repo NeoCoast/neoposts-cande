@@ -47,7 +47,13 @@ $(document).ready(function() {
 
           const followersContainer = document.querySelector(".followers-container");
           if (followersContainer.querySelectorAll('.row-user').length === 0) {
-            $('.no-posts.no-follow').show();
+            const followersContainer = document.querySelector(".followers-container");
+            const newDiv = document.createElement('div');
+            newDiv.classList.add('.no-followers');
+
+            newDiv.style.margin= '20px 45px';
+            newDiv.textContent = 'No users found';
+            followersContainer.appendChild(newDiv);
           } 
         }
       }
@@ -81,11 +87,14 @@ $(document).ready(function() {
         success: function(data) {
           if (isSideUser && inFollowers) {
             const followersContainer = document.querySelector(".followers-container");
+
+            if (followersContainer.querySelectorAll('.row-user').length === 0) {
+              const secondChild = followersContainer.children[1];
+              secondChild.remove();
+            }
             const tempContainer = document.createElement('div');
             tempContainer.innerHTML = data.attachment_partial;
             followersContainer.appendChild(tempContainer.firstChild);
-
-            $('.no-posts.no-follow').hide();
           }
         },
       })

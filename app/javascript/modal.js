@@ -1,17 +1,5 @@
 $(document).ready(function() {
 
-  let cleanupData = localStorage.getItem('cleanupData');
-
-  if (cleanupData) {
-    localStorage.removeItem('cleanupData');
-
-    window.location.reload();
-  }
-
-  $(window).on('beforeunload', function () {
-    localStorage.setItem('cleanupData', 'some data');
-  });
-
   $(document).on('click', '.btn-delete', function() {
     const modal = $(event.target).next('.modal');
     modal.show();
@@ -40,23 +28,29 @@ $(document).ready(function() {
             newDiv.style.margin= '20px 45px';
             newDiv.textContent = 'No posts found';
             postsContainer.appendChild(newDiv);
-          } 
+          }
+          document.querySelector(".post-count").textContent = parseInt(document.querySelector(".post-count").textContent) - 1;
         }
         else {
-          window.history.back();
-          $(window).on('beforeunload', function () {
-            $(window).off('beforeunload');
-                
-            setTimeout(function () {
-              window.location.reload();
-            }, 1000); 
-          });
+          let previousPageUrl = document.referrer;
+
+          window.location.href = previousPageUrl;
+
+          setTimeout(function () {
+            window.location.reload();
+          }, 1000);
         }
       }
     });
   });
 
   $(document).on('click', '.back-btn', function() {
-    window.history.back();
+    let previousPageUrl = document.referrer;
+
+    window.location.href = previousPageUrl;
+
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000);
   });
 });
