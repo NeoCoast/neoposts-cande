@@ -32,7 +32,7 @@ $(document).ready(function() {
           document.querySelector(".post-count").textContent = parseInt(document.querySelector(".post-count").textContent) - 1;
         }
         else {
-          var previousPageUrl = document.referrer;
+          let previousPageUrl = document.referrer;
 
           window.location.href = previousPageUrl;
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
   });
 
   $(document).on('click', '.back-btn', function() {
-    var previousPageUrl = document.referrer;
+    let previousPageUrl = document.referrer;
 
     window.location.href = previousPageUrl;
 
