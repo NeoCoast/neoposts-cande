@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $('#post_comment').on('keypress', function(event) {
     if (event.which === 13) { // 13 is the key code for Enter
       addComment();
