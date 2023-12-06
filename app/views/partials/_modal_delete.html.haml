@@ -1,6 +1,6 @@
 / Button trigger modal
 %button.btn.btn-primary.btn-delete{ "data-post-id" => post_id, "data-target" => "#modalId", "data-toggle" => "modal", "type" => "button" }
-  delete
+  Delete
 
 / Modal
 .modal
@@ -10,4 +10,4 @@
         Are you sure you want to delete this post?
       .modal-footer
         %button.btn.btn-secondary.close-modal{ "data-dismiss" => "modal", type: "button" } Close
-        %button.btn.btn-primary.btn-delete-post{ type: "button", "data-post-id" => post_id, "data-in-index" => in_index } delete
+        %button.btn.btn-primary.btn-delete-post{ type: "button", "data-post-id" => post_id, "data-in-index" => in_index } Delete

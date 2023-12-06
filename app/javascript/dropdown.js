@@ -3,19 +3,26 @@ $(document).ready(function() {
     $('.dropdown-menu').toggle();
   });
 
-  $(document).on('click', '.dropdown-item, .btn-apply', function() {
+  $(document).on('click', '.dropdown-item, .btn-apply, .btn-clear', function() {
     $('.dropdown-menu').hide();
 
     if ($(this).hasClass('dropdown-item')) {
       var sortBy = $(this).data('sort-by');
-    } else if ($(this).hasClass('btn-apply')) {
+    } else if ($(this).hasClass('btn-apply') || $(this).hasClass('btn-clear')) {
       var sortBy = $('.btn-dropdown').text();
     } 
 
-    const authorFilter = $('.author-filter').val();
-    const titleFilter = $('.title-filter').val();
-    const bodyFilter = $('.body-filter').val();
-    const dateFilter = $('input[name="date_filter"]:checked').val();
+    if ( $(this).hasClass('btn-clear'))  {
+      $('input[name="date_filter"]:checked').prop('checked', false);
+      $('.body-filter').val('');
+      $('.title-filter').val('');
+      $('.author-filter').val('');
+    }
+
+    var authorFilter = $('.author-filter').val();
+    var titleFilter = $('.title-filter').val();
+    var bodyFilter = $('.body-filter').val();
+    var dateFilter = $('input[name="date_filter"]:checked').val();
 
     $.ajax ({
       url: '/posts',

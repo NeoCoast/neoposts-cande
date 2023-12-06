@@ -19,8 +19,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid user id' do
       get(api_v1_user_posts_path(0), headers:)
-      expect(response).to have_http_status(:not_found)
-      expect(response.body).to eq({ message: 'User does not exist' }.to_json)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
     end
 
     context 'with valid token' do
@@ -70,8 +70,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid post id' do
       get(api_v1_post_path(0), headers:)
-      expect(response).to have_http_status(:not_found)
-      expect(response.body).to eq({ message: 'Post does not exist' }.to_json)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
     end
 
     context 'with valid token' do
@@ -123,8 +123,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid user id' do
       post(api_v1_user_posts_path(0), params: { post: new_post }, headers:)
-      expect(response).to have_http_status(:not_found)
-      expect(response.body).to eq({ message: 'User does not exist' }.to_json)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
     end
 
     it 'with different user id than token' do
@@ -220,8 +220,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid user id' do
       put(api_v1_post_path(0), headers:)
-      expect(response).to have_http_status(:not_found)
-      expect(response.body).to eq({ message: 'Post does not exist' }.to_json)
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
     end
 
     context 'with valid token' do

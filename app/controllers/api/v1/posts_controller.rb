@@ -7,7 +7,7 @@ module Api
       before_action :find_post, only: %i[show update]
 
       def index
-        @posts = @user.posts
+        @posts = @user.posts.order(published_at: :desc)
       end
 
       def show; end
@@ -44,13 +44,13 @@ module Api
       def find_user
         @user = User.find(params[:user_id])
       rescue ActiveRecord::RecordNotFound
-        render json: { message: 'User does not exist' }, status: :not_found
+        render json: { message: 'Unauthorized' }, status: :unauthorized
       end
 
       def find_post
         @post = Post.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render json: { message: 'Post does not exist' }, status: :not_found
+        render json: { message: 'Unauthorized' }, status: :unauthorized
       end
 
       def post_params

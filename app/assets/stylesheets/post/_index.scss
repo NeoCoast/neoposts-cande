@@ -122,10 +122,15 @@ a {
 
 .btn-delete {
   height: fit-content;
-  border-color: #6E80B1;
-  background-color: #6E80B1;
+  border-color: #D83A35;
+  background-color: #D83A35;
   margin-inline-start: auto;
   align-self: end;
+}
+
+.btn.btn-primary.btn-delete-post {
+  border-color: #D83A35;
+  background-color: #D83A35;
 }
 
 .btn-dropdown {
