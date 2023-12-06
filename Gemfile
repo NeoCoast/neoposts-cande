@@ -41,8 +41,6 @@ gem 'foreman', '~> 0.87.2'
 
 gem 'kaminari', '~> 1.2'
 
-gem 'bootstrap', '~> 5.0.1'
-
 gem 'devise_token_auth', git: 'https://github.com/lynndylanhurley/devise_token_auth', branch: 'master'
 
 gem 'omniauth', '~> 2.0'
