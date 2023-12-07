@@ -127,14 +127,6 @@
   ]
 ```
 
-- Not found 404: renders the following error
-
-```
-  {
-    "message": "User does not exist"
-  }
-```
-
 - Unauthorized 401: renders the following error
 
 ```
@@ -142,6 +134,14 @@
     "errors": [
       "You need to sign in or sign up before continuing."
     ]
+  }
+```
+
+if the user with user_id does not exist it render the following error
+
+```
+  {
+    "message": "Unauthorized"
   }
 ```
 
@@ -212,27 +212,23 @@
   }
 ```
 
-- Not found 404: renders the following error
-
-```
-
-  {
-    "status": 404,
-    "message": "Post does not exist"
-  }
-
-```
-
 - Unauthorized 401: renders the following error
 
 ```
-
   {
     "errors": [
       "You need to sign in or sign up before continuing."
     ]
   }
 
+```
+
+if the post with post_id does not exist it render the following error
+
+```
+  {
+    "message": "Unauthorized"
+  }
 ```
 
 ## POST api/v1/users/:user_id/posts
@@ -281,16 +277,6 @@
 }
 ```
 
-- Not found 404: renders the following error
-
-```
-  {
-    "status": 404,
-    "message": "User does not exist"
-  }
-
-```
-
 - Unauthorized 401: renders the following error if the headers are not provided
 
 ```
@@ -301,7 +287,7 @@
   }
 ```
 
-or this one in case the user_id from the route is not the logged in user
+or this one in case if there is no user with that user_id or in case the user_id from the route is not the logged in user
 
 ```
   {
@@ -355,16 +341,6 @@ or this one in case the user_id from the route is not the logged in user
 }
 ```
 
-- Not found 404: renders the following error
-
-```
-  {
-    "status": 404,
-    "message": "User does not exist"
-  }
-
-```
-
 - Unauthorized 401: renders the following error
 
 ```
@@ -372,5 +348,13 @@ or this one in case the user_id from the route is not the logged in user
     "errors": [
       "You need to sign in or sign up before continuing."
     ]
+  }
+```
+
+if the post with post_id does not exist it render the following error
+
+```
+  {
+    "message": "Unauthorized"
   }
 ```
