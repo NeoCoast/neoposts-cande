@@ -141,7 +141,7 @@ if the user with user_id does not exist it render the following error
 
 ```
   {
-    "message": "Unauthorized"
+    "message": "User does not exist"
   }
 ```
 
@@ -227,7 +227,7 @@ if the post with post_id does not exist it render the following error
 
 ```
   {
-    "message": "Unauthorized"
+    "message": "Post does not exist"
   }
 ```
 
