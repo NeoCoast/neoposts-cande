@@ -19,8 +19,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid user id' do
       get(api_v1_user_posts_path(0), headers:)
-      expect(response).to have_http_status(:unauthorized)
-      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
+      expect(response).to have_http_status(:bad_request)
+      expect(response.body).to eq({ message: 'User does not exist' }.to_json)
     end
 
     context 'with valid token' do
@@ -70,8 +70,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
     it 'with invalid post id' do
       get(api_v1_post_path(0), headers:)
-      expect(response).to have_http_status(:unauthorized)
-      expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
+      expect(response).to have_http_status(:bad_request)
+      expect(response.body).to eq({ message: 'Post does not exist' }.to_json)
     end
 
     context 'with valid token' do
@@ -209,7 +209,8 @@ RSpec.describe Api::V1::PostsController, type: :request do
 
   describe 'PUT #update' do
     let!(:user) { create :user, password: 'password' }
-    let(:new_post) { create :post }
+    let(:new_post) { create :post, user: }
+    let(:other_post) { create :post }
     let!(:headers) { user.create_new_auth_token.merge('ACCEPT' => 'application/json') }
 
     it 'with no token' do
@@ -227,22 +228,31 @@ RSpec.describe Api::V1::PostsController, type: :request do
     context 'with valid token' do
       context 'with valid params' do
         let(:post_params) { attributes_for :post }
-        before do
-          put api_v1_post_path(new_post.id), params: { post: post_params }, headers:
+
+        it 'with different user id than token' do
+          put(api_v1_post_path(other_post.id), params: { post: post_params }, headers:)
+          expect(response).to have_http_status(:unauthorized)
+          expect(response.body).to eq({ message: 'Unauthorized' }.to_json)
         end
 
-        it 'returns http success' do
-          expect(response).to have_http_status(:success)
-        end
+        context 'cerates the post' do
+          before do
+            put api_v1_post_path(new_post.id), params: { post: post_params }, headers:
+          end
 
-        it 'verifies last post was updated' do
-          expect(Post.last).to have_attributes(post_params)
-        end
+          it 'returns http success' do
+            expect(response).to have_http_status(:success)
+          end
 
-        it 'verifies post count does not increase' do
-          count = Post.count
-          put(api_v1_post_path(new_post.id), params: { post: post_params }, headers:)
-          expect(Post.count).to be(count)
+          it 'verifies last post was updated' do
+            expect(Post.last).to have_attributes(post_params)
+          end
+
+          it 'verifies post count does not increase' do
+            count = Post.count
+            put(api_v1_post_path(new_post.id), params: { post: post_params }, headers:)
+            expect(Post.count).to be(count)
+          end
         end
       end
 

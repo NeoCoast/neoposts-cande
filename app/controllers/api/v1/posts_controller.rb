@@ -7,30 +7,30 @@ module Api
       before_action :find_post, only: %i[show update]
 
       def index
+        return render json: { message: 'User does not exist' }, status: :bad_request unless @user.present?
+
         @posts = @user.posts.order(published_at: :desc)
       end
 
-      def show; end
+      def show
+        render json: { message: 'Post does not exist' }, status: :bad_request unless @post.present?
+      end
 
       def create
+        return render json: { message: 'Unauthorized' }, status: :unauthorized unless @user == current_user
+
         @post = @user.posts.build(post_params)
-        @post.save if validate_post(@user, @post)
+        @post.save if validate_not_empty_attriutes(@post.title, @post.body)
       end
 
       def update
-        return unless validate_not_empty_attriutes(post_params[:title], post_params[:body])
+        return render json: { message: 'Unauthorized' }, status: :unauthorized unless @post&.user == current_user
+
+        new_post = params[:post]
+        return unless validate_not_empty_attriutes(new_post[:title], new_post[:body])
 
         @post.update(post_params)
         render 'api/v1/posts/create', formats: [:json], locals: { post: @post }
-      end
-
-      # :reek:ControlParameter
-      def validate_post(user, post)
-        if user != current_user
-          render json: { message: 'Unauthorized' }, status: :unauthorized
-          return false
-        end
-        validate_not_empty_attriutes(post.title, post.body)
       end
 
       def validate_not_empty_attriutes(title, body)
@@ -42,15 +42,11 @@ module Api
       end
 
       def find_user
-        @user = User.find(params[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: 'Unauthorized' }, status: :unauthorized
+        @user = User.find_by(id: params[:user_id])
       end
 
       def find_post
-        @post = Post.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { message: 'Unauthorized' }, status: :unauthorized
+        @post = Post.find_by(id: params[:id])
       end
 
       def post_params
