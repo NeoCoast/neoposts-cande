@@ -19,10 +19,10 @@ $(document).ready(function() {
       $('.author-filter').val('');
     }
 
-    var authorFilter = $('.author-filter').val();
-    var titleFilter = $('.title-filter').val();
-    var bodyFilter = $('.body-filter').val();
-    var dateFilter = $('input[name="date_filter"]:checked').val();
+    let authorFilter = $('.author-filter').val();
+    let titleFilter = $('.title-filter').val();
+    let bodyFilter = $('.body-filter').val();
+    let dateFilter = $('input[name="date_filter"]:checked').val();
 
     $.ajax ({
       url: '/posts',
