@@ -30,10 +30,11 @@ RSpec.describe 'Relationships', type: :request do
       expect(follower.following?(followed)).to be_truthy
     end
 
-    it 'verifies cant follow same user twice' do
+    it 'verifies user cant follow a user twice' do
       post relationships_path, params: { relationship: { followed_id: followed.id } }
+      count = Relationship.count
       post relationships_path, params: { relationship: { followed_id: followed.id } }
-      expect(response).not_to have_http_status(:success)
+      expect(Relationship.count).to be(count)
     end
   end
 

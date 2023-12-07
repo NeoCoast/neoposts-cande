@@ -146,4 +146,158 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
+
+  describe '#destroy_post_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:new_post) { create :post, user: }
+    let(:commentable) { create :comment, user:, commentable: new_post }
+    let(:comment) { create :comment, user:, commentable: }
+
+    it 'with no logged user - redirects to login' do
+      delete post_path(new_post)
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    context 'with logged user' do
+      before do
+        user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+        sign_in user
+        user.likes.create(likeable: new_post)
+        user.likes.create(likeable: commentable)
+        user.likes.create(likeable: comment)
+      end
+
+      it 'verifies response is success' do
+        delete post_path(new_post)
+        expect(response).to have_http_status(:success)
+      end
+
+      it 'verifies post count decreases' do
+        count = Post.count
+        delete post_path(new_post)
+        expect(Post.count).to be(count - 1)
+      end
+
+      it 'verifies post likes count decreases' do
+        count = Like.count
+        delete post_path(new_post)
+        expect(Like.count).to be(count - 3)
+      end
+
+      it 'verifies comment count decreases' do
+        count = Comment.count
+        delete post_path(new_post)
+        expect(Comment.count).to be(count - 2)
+      end
+
+      it 'verifies user post count decreases' do
+        count = user.posts.count
+        delete post_path(new_post)
+        expect(user.posts.count).to be(count - 1)
+      end
+
+      it 'verifies user comment count decreases' do
+        count = user.comments.count
+        delete post_path(new_post)
+        expect(user.comments.count).to be(count - 2)
+      end
+
+      it 'verifies user like count decreases' do
+        count = user.likes.count
+        delete post_path(new_post)
+        expect(user.likes.count).to be(count - 3)
+      end
+    end
+  end
+
+  describe '#sort_posts_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:user2) { create :user }
+
+    let!(:post4) { create :post, user: user2 }
+    let!(:post3) { create :post, user: user2 }
+    let!(:post2) { create :post, user: user2 }
+
+    before do
+      user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      sign_in user
+      user.likes.create(likeable: post2)
+      user.likes.create(likeable: post4)
+      user.follow(user2)
+    end
+
+    it 'shows posts in date order' do
+      get root_path, params: { sort_by: '' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post3.title)
+      expect(response.body.index(post2.title)).to be < response.body.index(post4.title)
+    end
+
+    it 'shows posts in liked order' do
+      get root_path, params: { sort_by: 'Number of likes' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post3.title)
+      expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
+    end
+
+    it 'shows posts in trending' do
+      get root_path, params: { sort_by: 'Trending' }
+      expect(response.body.index(post2.title)).to be < response.body.index(post4.title)
+      expect(response.body.index(post4.title)).to be < response.body.index(post3.title)
+    end
+  end
+
+  describe '#filter_posts_request' do
+    image_path = File.join(File.dirname(__FILE__), '..', 'images', 'download.jpeg')
+    let(:user) { create :user }
+    let(:user2) { create :user }
+    let(:user3) { create :user }
+
+    let!(:post2) { create :post, user: user2, title: 'title2', body: 'body2' }
+    let!(:post3) { create :post, user: user3, title: 'title3', body: 'body3' }
+
+    before do
+      user.avatar.attach(io: File.open(image_path), filename: 'download.jpeg', content_type: 'image/jpeg')
+      post3.update(published_at: Time.now - 1.month)
+      sign_in user
+      user.follow(user2)
+      user.follow(user3)
+    end
+
+    it 'filters posts by author' do
+      get root_path, params: { author_filter: user2.nickname }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by title' do
+      get root_path, params: { title_filter: post2.title }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by body' do
+      get root_path, params: { body_filter: post2.body }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - day' do
+      get root_path, params: { date_filter: 'Last day' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - week' do
+      get root_path, params: { date_filter: 'Last week' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+
+    it 'filters posts by date - month' do
+      get root_path, params: { date_filter: 'Last month' }
+      expect(response.body).to include(post2.title)
+      expect(response.body).not_to include(post3.title)
+    end
+  end
 end

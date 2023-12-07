@@ -1,0 +1,22 @@
+.filter-container
+  Author:
+  = text_field_tag :author_filter, params[:author_filter], class: 'input form-control filter-input author-filter', placeholder: 'Author'
+
+  Post title:
+  = text_field_tag :title_filter, params[:title_filter], class: 'input form-control filter-input title-filter', placeholder: 'Title'
+
+  Post body:
+  = text_field_tag :body_filter, params[:body_filter], class: 'input form-control filter-input body-filter', placeholder: 'Body'
+
+  .form-check
+    %input#last_day.form-check-input{ name: 'date_filter', type: 'radio', value: 'Last day' }
+      Last day
+  .form-check
+    %input#last_week.form-check-input{ name: 'date_filter', type: 'radio', value: 'Last week' }
+      Last week
+  .form-check
+    %input#last_month.form-check-input{ name: 'date_filter', type: 'radio', value: 'Last month' }
+      Last month
+
+  = button_tag 'Apply filters', class: 'btn btn-primary btn-apply', id: 'apply-filters-button'
+  = button_tag 'Clear filters', class: 'btn btn-secondary btn-clear', id: 'clear-filters-button'

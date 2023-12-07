@@ -1,0 +1,36 @@
+.btn-apply {
+  background-color: #6E80B1;
+  border-color: #6E80B1;
+  padding: 5px;
+  width: 100px;
+  color: white;
+}
+
+.filter-container {
+  align-items: center;
+  width: fit-content;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  width: 100%;
+}
+
+.filter-container >* {
+  margin-bottom: 12px;
+}
+
+.filter-container {
+  margin-right: auto;
+  width: 350px;
+}
+
+.posts-container.filter-index {
+  margin-right: 0px;
+}
+
+.btn-clear {
+  color: #6E80B1;
+  border-color: #6E80B1;
+  padding: 5px;
+  width: 100px;
+  background-color: white;
+}

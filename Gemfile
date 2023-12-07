@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 7.1'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
@@ -41,7 +41,9 @@ gem 'foreman', '~> 0.87.2'
 
 gem 'kaminari', '~> 1.2'
 
-gem 'font-awesome-sass', '~> 6.4.2'
+gem 'devise_token_auth', git: 'https://github.com/lynndylanhurley/devise_token_auth', branch: 'master'
+
+gem 'omniauth', '~> 2.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

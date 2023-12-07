@@ -1,16 +1,19 @@
 .row.g-0
-  .col-md-1
+  .col-md-1.col-post-data
     - if post.user.avatar.persisted?
       = link_to user_show_path(post.user.nickname), class: 'user_link_info' do
         = image_tag post.user.avatar, class: 'rounded-circle user-img-post'
   .col-md-11
     .post-info.div.card
-      = link_to user_show_path(post.user.nickname), class: 'user_link_info' do
-        = post.user.nickname
-        %br
-        = post.user.email
-        |
-        = distance_of_time_in_words(post.published_at, Time.now) + ' ago'
+      .post-intro
+        = link_to user_show_path(post.user.nickname), class: 'user_link_info' do
+          = post.user.nickname
+          %br
+          = post.user.email
+          |
+          = distance_of_time_in_words(post.published_at, Time.now) + ' ago'
+        - if post.user == current_user
+          = render partial: 'partials/modal_delete', locals: { post_id: post.id, in_index: in_index }
       - if post_links
         = link_to post_path(post), class: 'post_link' do
           = render partial: 'posts/post_elements', locals: { post: post }

@@ -115,3 +115,49 @@ a {
   margin-bottom: 10px;
   margin-right: 10px;
 }
+
+.post-intro {
+  display: flex;
+}
+
+.btn-delete {
+  height: fit-content;
+  border-color: #D83A35;
+  background-color: #D83A35;
+  margin-inline-start: auto;
+  align-self: end;
+}
+
+.btn.btn-primary.btn-delete-post {
+  border-color: #D83A35;
+  background-color: #D83A35;
+}
+
+.btn-dropdown {
+  border-color: #6E80B1;
+  background-color: #6E80B1;
+  width: -webkit-fill-available;
+  margin-top: 20px;
+}
+
+.dropdown-menu {
+  width: -webkit-fill-available;
+}
+
+.filter-post-container {
+  margin-right: auto;
+}
+
+.filter-container {
+  background-color: white;
+  border: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  color: #626E90;
+  max-width: 590px; 
+  margin-left: 10px;
+  border-color: #6E80B1;
+  height: fit-content;
+  padding: 20px;
+  margin-bottom: 20px;
+}

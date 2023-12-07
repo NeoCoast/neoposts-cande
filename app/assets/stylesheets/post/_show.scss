@@ -90,7 +90,8 @@
 }
 
 .user-img-comment {
-    align-self: center;
+    align-self: baseline;
+    margin-top: 15px;
 }
 
 .user-img-new-comment {
@@ -170,4 +171,14 @@
     color: #626E90;
     margin-left: 25px;
     font-size: 15px;
+}
+
+.user_link_info {
+    max-width: -webkit-fill-available;
+}
+
+.comment.card {
+    border: none;
+    color: #626E90;
+    margin-left: 25px;
 }
